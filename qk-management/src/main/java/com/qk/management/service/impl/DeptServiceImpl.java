@@ -16,6 +16,11 @@ public class DeptServiceImpl implements DeptService {
     private DeptMapper deptMapper;
 
     @Override
+    public void deleteById(Integer id) {
+        deptMapper.deleteById(id);
+    }
+
+    @Override
     public void update(Dept dept) {
         dept.setUpdateTime(LocalDateTime.now());
         deptMapper.update(dept);

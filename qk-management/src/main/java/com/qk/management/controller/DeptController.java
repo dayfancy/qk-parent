@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class DeptController {
     @Autowired
     private DeptService deptService;
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable Integer id){
+        deptService.deleteById(id);
+        return Result.success();
+    }
+
     @PutMapping
     public Result update(@RequestBody Dept dept){
          deptService.update(dept);
