@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class DeptController {
     @Autowired
     private DeptService deptService;
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id){
+       Dept dept = deptService.getById(id);
+        return Result.success(dept);
+    }
 
 
     @GetMapping

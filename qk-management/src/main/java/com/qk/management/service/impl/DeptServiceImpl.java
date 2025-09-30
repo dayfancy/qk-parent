@@ -16,6 +16,11 @@ public class DeptServiceImpl implements DeptService {
     private DeptMapper deptMapper;
 
     @Override
+    public Dept getById(Integer id) {
+        return deptMapper.selectById(id);
+    }
+
+    @Override
     public PageResult<Dept> page(String name, Integer status, Integer page, Integer pageSize) {
         Integer total = deptMapper.count(name, status);
 
