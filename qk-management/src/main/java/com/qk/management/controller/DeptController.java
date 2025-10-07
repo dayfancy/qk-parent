@@ -15,6 +15,7 @@ public class DeptController {
     private DeptService deptService;
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id){
+//        int i = 1/0;
         log.info("删除部门id:{}",id);
         deptService.deleteById(id);
         return Result.success();
