@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.UserMapper">
+
+
+    <select id="selectByPage" resultType="com.qk.entity.domain.user.UserDO"
+            parameterType="com.qk.dto.user.UserDTO">
+        SELECT
+        u.*,
+        d.name AS deptName,
+        r.name AS roleName
+        FROM
+        user AS u
+        LEFT JOIN dept d ON u.dept_id = d.id
+        LEFT JOIN role r ON u.role_id = r.id
+        <where>
+            <if test="name != null and name!=''">
+                AND u.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="phone != null and phone!=''">
+                AND u.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+            <if test="status != null">
+                AND u.status = #{status}
+            </if>
+            <if test="deptId != null">
+                AND u.dept_id = #{deptId}
+            </if>
+        </where>
+    </select>
 </mapper>
