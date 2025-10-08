@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @Author: RightSquare
  * @Date: 2025/9/30 16:01
- * @Description: TODO
+ * @Description:
  */
 public class LogTests {
     //定义日志记录对象
