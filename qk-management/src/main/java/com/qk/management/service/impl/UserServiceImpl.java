@@ -11,6 +11,7 @@ import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    private static final String DEFAULT_PASSWORD_SUFIX = "123";
     @Autowired
     private UserMapper userMapper;
 
@@ -31,7 +33,11 @@ public class UserServiceImpl implements UserService {
         if (hasNull) {
             throw new RuntimeException("请填写完整信息");
         }
-        user.setPassword(user.getUsername()+"123");
+        // merge digest password
+
+        String rawPassword = new StringBuilder(user.getUsername()).append(DEFAULT_PASSWORD_SUFIX).toString();
+        String encodedPassword = DigestUtils.md5DigestAsHex(rawPassword.getBytes());
+        user.setPassword(encodedPassword);
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         userMapper.insert(user);
