@@ -1,6 +1,7 @@
 package com.qk.management.mapper;
 
 import com.qk.dto.user.UserDTO;
+import com.qk.entity.User;
 import com.qk.entity.domain.user.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,8 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
+
+    void insert(User user);
 
     List<UserDO> selectByPage(UserDTO dto);
 }

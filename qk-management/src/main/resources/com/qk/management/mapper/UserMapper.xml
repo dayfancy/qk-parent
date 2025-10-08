@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.UserMapper">
+    <insert id="insert">
+        INSERT INTO user(username,password,name,phone,email,gender,status,create_time,update_time
+        <if test="deptId != null">
+            ,dept_id
+        </if>
+        <if test="roleId != null">
+            ,role_id
+        </if>
+        <if test="image != null and image!=''">
+            ,image
+        </if>
+        <if test="remark != null and remark!=''">
+            ,remark
+        </if>
+        )
+        VALUES(#{username},#{password},#{name},#{phone},#{email},#{gender},#{status},#{createTime},#{updateTime}
+        <if test="deptId != null">
+            ,#{deptId}
+        </if>
+        <if test="roleId != null">
+            ,#{roleId}
+        </if>
+        <if test="image != null and image!=''">
+            ,#{image}
+        </if>
+        <if test="remark != null and remark!=''">
+            ,#{remark}
+        </if>
+        )
+    </insert>
 
 
     <select id="selectByPage" resultType="com.qk.entity.domain.user.UserDO"

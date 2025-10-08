@@ -86,7 +86,5 @@ public class User {
      * 修改时间
      */
     private LocalDateTime updateTime;
-    //扩展属性
-    private String deptName; //部门名称
-    private String roleName; //角色名称
+
 }

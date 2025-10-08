@@ -29,6 +29,7 @@
         <mybatis-spring-boot.version>3.0.4</mybatis-spring-boot.version>
         <lombok.version>1.18.38</lombok.version>
         <pagehelper.version>2.1.1</pagehelper.version>
+        <hutool-all.version>5.8.40</hutool-all.version>
     </properties>
 
     <!--当springboot 没有管理依赖版本，可以自己在自己的父工程中进行依赖管理-->
@@ -43,6 +44,11 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
