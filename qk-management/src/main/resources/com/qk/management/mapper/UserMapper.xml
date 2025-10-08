@@ -57,5 +57,6 @@
                 AND u.dept_id = #{deptId}
             </if>
         </where>
+        ORDER BY u.update_time DESC
     </select>
 </mapper>
