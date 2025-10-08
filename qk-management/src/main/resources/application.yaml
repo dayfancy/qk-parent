@@ -6,6 +6,11 @@ spring:
     username: root
     password: 123456
 
+    servlet:
+      multipart:
+        max-file-size: 10MB
+        max-request-size: 10MB
+
 #mybatis配置
 mybatis:
   configuration:
