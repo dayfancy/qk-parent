@@ -21,6 +21,17 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @PutMapping
+    public Result update(@RequestBody User user){
+        userService.update(user);
+        return Result.success();
+    }
+    @GetMapping("/{id}")
+    public Result selectById(@PathVariable Integer id){
+        User user = userService.selectById(id);
+        return Result.success(user);
+    }
     @PostMapping
     public Result add(@RequestBody User user){
         userService.addUser(user);

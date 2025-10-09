@@ -4,6 +4,7 @@ import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
 import com.qk.entity.domain.user.UserDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -14,6 +15,10 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
+    @Select("select * from user where id = #{id}")
+    User selectById(Integer id);
+
+    void update(User user);
 
     void insert(User user);
 

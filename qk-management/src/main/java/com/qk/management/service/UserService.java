@@ -7,6 +7,10 @@ import com.qk.entity.domain.user.UserDO;
 
 public interface UserService {
 
+    User selectById(Integer id);
+
+    void update(User user);
+
     void addUser(User user);
 
     PageResult<UserDO> selectByPage(UserDTO dto);
