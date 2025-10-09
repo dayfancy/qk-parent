@@ -14,6 +14,9 @@ import java.util.List;
  */
 @Mapper
 public interface RoleMapper {
+    @Select("select * from role")
+    List<Role> selectAll();
+
     void update(Role role);
 
     @Select("select * from role where id = #{id}")

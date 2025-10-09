@@ -24,6 +24,11 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Override
+    public List<Role> selectAll() {
+      return roleMapper.selectAll();
+    }
+
+    @Override
     public void update(Role role) {
         //Parameter Checking
         boolean hasNull = BeanUtil.hasNullField(role, "remark", "createTime", "updateTime");

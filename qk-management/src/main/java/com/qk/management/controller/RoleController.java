@@ -22,6 +22,12 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+    @GetMapping("/list")
+    public Result selectAll(){
+        List<Role> res = roleService.selectAll();
+        return Result.success(res);
+    }
+
     @PutMapping
     public Result update(@RequestBody Role role){
         roleService.update(role);
