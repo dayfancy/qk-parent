@@ -23,5 +23,6 @@
                 AND label LIKE concat ('%',#{label},'%')
             </if>
         </where>
+        ORDER BY update_time DESC
     </select>
 </mapper>
