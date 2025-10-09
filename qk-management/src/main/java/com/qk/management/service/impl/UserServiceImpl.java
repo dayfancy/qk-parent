@@ -28,6 +28,12 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
+    public List<UserDO> selectByRole(String roleLabel) {
+        userMapper.selectByRole(roleLabel);
+        return userMapper.selectByRole(roleLabel);
+    }
+
+    @Override
     public User selectById(Integer id) {
         return userMapper.selectById(id);
     }

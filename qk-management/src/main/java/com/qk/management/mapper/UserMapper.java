@@ -15,6 +15,9 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
+
+    List<UserDO> selectByRole(String roleLabel);
+
     @Select("select * from user where id = #{id}")
     User selectById(Integer id);
 

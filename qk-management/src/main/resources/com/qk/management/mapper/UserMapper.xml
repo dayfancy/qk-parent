@@ -96,4 +96,16 @@
         </where>
         ORDER BY u.update_time DESC
     </select>
+    <select id="selectByRole" resultType="com.qk.entity.domain.user.UserDO">
+        SELECT
+        u.*,
+        d.name AS deptName,
+        r.name AS roleName
+        FROM
+        user AS u
+        LEFT JOIN dept d ON u.dept_id = d.id
+        LEFT JOIN role r ON u.role_id = r.id
+        WHERE
+        r.label = #{roleLabel}
+    </select>
 </mapper>

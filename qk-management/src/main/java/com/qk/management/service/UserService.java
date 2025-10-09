@@ -5,7 +5,11 @@ import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
 import com.qk.entity.domain.user.UserDO;
 
+import java.util.List;
+
 public interface UserService {
+
+    List<UserDO> selectByRole(String roleLabel);
 
     User selectById(Integer id);
 
