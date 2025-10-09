@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qk.management.mapper.CourseMapper">
+
+    <select id="selectByPage" resultType="com.qk.entity.Course">
+        SELECT * FROM Course
+        <where>
+            <if test="name != null and name!=''">
+                AND name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="subject != null">
+                AND subject = #{subject}
+            </if>
+            <if test="target != null">
+                AND target = #{target}
+            </if>
+        </where>
+    </select>
+</mapper>
