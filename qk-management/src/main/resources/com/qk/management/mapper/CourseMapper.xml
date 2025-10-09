@@ -15,6 +15,33 @@
         </if>
         )
     </insert>
+    <update id="update">
+        UPDATE Course
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="subject != null">
+                subject = #{subject},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="target != null">
+                target = #{target},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
     <select id="selectByPage" resultType="com.qk.entity.Course">
         SELECT * FROM Course

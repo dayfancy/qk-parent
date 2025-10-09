@@ -1,5 +1,6 @@
 package com.qk.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,9 @@ public class Course {
     private Integer price; //课程价格（元）
     private Integer target; //适用人群, 1:小白学员, 2:中级程序员
     private String description; //课程介绍
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime; //创建时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime; //修改时间
 
 }

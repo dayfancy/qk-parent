@@ -4,6 +4,8 @@ import com.qk.common.PageResult;
 import com.qk.entity.Course;
 
 public interface CourseService {
+    void update(Course course);
+
     Course selectById(Integer id);
 
     void deleteById(Integer id);

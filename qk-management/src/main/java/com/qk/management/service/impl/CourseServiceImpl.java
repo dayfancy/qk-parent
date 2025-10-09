@@ -24,6 +24,11 @@ public class CourseServiceImpl implements CourseService {
     private CourseMapper courseMapper;
 
     @Override
+    public void update(Course course) {
+        courseMapper.update(course);
+    }
+
+    @Override
     public Course selectById(Integer id) {
         return courseMapper.selectById(id);
     }

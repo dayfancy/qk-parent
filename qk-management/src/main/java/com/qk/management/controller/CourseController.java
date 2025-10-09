@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @PutMapping
+    public Result update(@RequestBody Course course){
+        courseService.update(course);
+        return Result.success();
+    }
     @GetMapping("/{id}")
     public Result selectById(@PathVariable Integer id){
         Course course = courseService.selectById(id);
