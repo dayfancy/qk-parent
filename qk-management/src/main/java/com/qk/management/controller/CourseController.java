@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable Integer id){
+        courseService.deleteById(id);
+        return Result.success();
+    }
 
     @PostMapping
     public Result add(@RequestBody Course course){

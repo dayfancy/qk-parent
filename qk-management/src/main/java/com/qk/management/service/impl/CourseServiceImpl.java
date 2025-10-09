@@ -24,6 +24,11 @@ public class CourseServiceImpl implements CourseService {
     private CourseMapper courseMapper;
 
     @Override
+    public void deleteById(Integer id) {
+        courseMapper.deleteById(id);
+    }
+
+    @Override
     public void add(Course course) {
         // Parameter Checking
         boolean hasNull = BeanUtil.hasNullField(course, "id","description", "createTime", "updateTime");
