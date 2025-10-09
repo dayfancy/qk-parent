@@ -20,6 +20,12 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @PostMapping
+    public Result add(@RequestBody Course course){
+        courseService.add(course);
+        return Result.success();
+    }
+
     @GetMapping
     public Result page(@RequestParam(value = "page", defaultValue = "1") Integer page,
                        @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,

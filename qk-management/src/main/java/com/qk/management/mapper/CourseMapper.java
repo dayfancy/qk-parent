@@ -13,5 +13,7 @@ import java.util.List;
 @Mapper
 public interface CourseMapper {
 
+    void add(Course course);
+
     List<Course> selectByPage(String name, Integer subject, Integer target);
 }
