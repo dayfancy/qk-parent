@@ -24,6 +24,11 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Override
+    public void deleteById(Integer id) {
+        roleMapper.deleteById(id);
+    }
+
+    @Override
     public void add(Role role) {
         boolean hasNull = BeanUtil.hasNullField(role, "id", "remark", "createTime", "updateTime");
         if (hasNull) {

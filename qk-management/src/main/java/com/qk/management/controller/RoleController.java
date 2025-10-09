@@ -20,6 +20,12 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id){
+    roleService.deleteById(id);
+    return Result.success();
+    }
     @PostMapping
     public Result add(@RequestBody Role role){
         roleService.add(role);

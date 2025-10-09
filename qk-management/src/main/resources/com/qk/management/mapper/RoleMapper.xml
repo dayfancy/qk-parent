@@ -17,7 +17,7 @@
         SELECT * FROM role
         <where>
             <if test="name != null and name!=''">
-                And name LIKE concat('%',#{name},'%')
+                AND name LIKE concat('%',#{name},'%')
             </if>
             <if test="label != null and label!=''">
                 AND label LIKE concat ('%',#{label},'%')
