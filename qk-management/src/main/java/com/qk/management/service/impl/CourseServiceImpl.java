@@ -24,6 +24,11 @@ public class CourseServiceImpl implements CourseService {
     private CourseMapper courseMapper;
 
     @Override
+    public List<Course> selectBySubject(Integer subjcet) {
+        return courseMapper.selectBySubject(subjcet);
+    }
+
+    @Override
     public List<Course> selectAll() {
         return courseMapper.selectAll();
     }
@@ -46,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void add(Course course) {
         // Parameter Checking
-        boolean hasNull = BeanUtil.hasNullField(course, "id","description", "createTime", "updateTime");
+        boolean hasNull = BeanUtil.hasNullField(course, "id", "description", "createTime", "updateTime");
         if (hasNull) {
             throw new RuntimeException("请填写完整信息");
         }

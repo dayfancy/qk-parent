@@ -6,6 +6,8 @@ import com.qk.entity.Course;
 import java.util.List;
 
 public interface CourseService {
+    List<Course> selectBySubject(Integer subjcet);
+
     List<Course> selectAll();
 
     void update(Course course);

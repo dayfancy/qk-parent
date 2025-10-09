@@ -21,40 +21,45 @@ import java.util.List;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+
+    @GetMapping("/subject/{subjcet}")
+    public Result selectBySubject(@PathVariable Integer subjcet) {
+       List<Course> res = courseService.selectBySubject(subjcet);
+       return Result.success(res);
+    }
+
     @GetMapping("/list")
-    public Result selectAll(){
+    public Result selectAll() {
         List<Course> res = courseService.selectAll();
         return Result.success(res);
     }
+
     @PutMapping
-    public Result update(@RequestBody Course course){
+    public Result update(@RequestBody Course course) {
         courseService.update(course);
         return Result.success();
     }
+
     @GetMapping("/{id}")
-    public Result selectById(@PathVariable Integer id){
+    public Result selectById(@PathVariable Integer id) {
         Course course = courseService.selectById(id);
         return Result.success(course);
     }
+
     @DeleteMapping("/{id}")
-    public Result deleteById(@PathVariable Integer id){
+    public Result deleteById(@PathVariable Integer id) {
         courseService.deleteById(id);
         return Result.success();
     }
 
     @PostMapping
-    public Result add(@RequestBody Course course){
+    public Result add(@RequestBody Course course) {
         courseService.add(course);
         return Result.success();
     }
 
     @GetMapping
-    public Result page(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                       @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
-                       @RequestParam(value = "name", required = false) String name,
-                       @RequestParam(value = "subject", required = false) Integer subject,
-                       @RequestParam(value = "target", required = false) Integer target
-    ) {
+    public Result page(@RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "subject", required = false) Integer subject, @RequestParam(value = "target", required = false) Integer target) {
         PageResult<Course> pageResult = courseService.selectByPage(name, subject, target, page, pageSize);
         return Result.success(pageResult);
     }

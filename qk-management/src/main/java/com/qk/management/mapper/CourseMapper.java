@@ -14,6 +14,9 @@ import java.util.List;
  */
 @Mapper
 public interface CourseMapper {
+    @Select("select * from course where subject = #{subject}")
+    List<Course> selectBySubject(Integer subjcet);
+
     @Select("select * from course")
     List<Course> selectAll();
 
