@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qk.management.mapper.RoleMapper">
+    <select id="selectByPage" resultType="com.qk.entity.Role">
+        SELECT *
+        FROM role
+        <where>
+            <if test="name != null and name!=''">
+                And name LIKE concat('%',#{name},'%')
+            </if>
+            <if test="label != null and label!=''">
+                AND label LIKE concat ('%',#{label},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

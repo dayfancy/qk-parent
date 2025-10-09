@@ -1,0 +1,37 @@
+package com.qk.management.controller;
+
+import com.qk.common.PageResult;
+import com.qk.common.Result;
+import com.qk.entity.Role;
+import com.qk.management.service.RoleService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @Author: RightSquare
+ * @Date: 2025/10/9 10:27
+ * @Description: Role Controller to client side
+ */
+@Slf4j
+@RestController
+@RequestMapping("/roles")
+public class RoleController {
+
+    @Autowired
+    private RoleService roleService;
+
+    @GetMapping
+    public Result page(
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "label", required = false) String label,
+            @RequestParam(name = "page", defaultValue = "1") Integer page,
+            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize
+    ) {
+        PageResult<Role> pageResult = roleService.page(name, label, page, pageSize);
+        return Result.success(pageResult);
+    }
+}
