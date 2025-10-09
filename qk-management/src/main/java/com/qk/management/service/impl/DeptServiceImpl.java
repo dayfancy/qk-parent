@@ -16,6 +16,11 @@ public class DeptServiceImpl implements DeptService {
     private DeptMapper deptMapper;
 
     @Override
+    public List<Dept> selectAll() {
+       return deptMapper.selectAll();
+    }
+
+    @Override
     public void deleteById(Integer id) {
         deptMapper.deleteById(id);
     }

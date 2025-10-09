@@ -10,6 +10,9 @@ import java.util.List;
 
 @Mapper
 public interface DeptMapper {
+    @Select("select * from dept")
+    List<Dept> selectAll();
+
     @Delete("delete from dept where id = #{id}")
     void deleteById(Integer id);
 

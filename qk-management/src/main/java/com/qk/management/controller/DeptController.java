@@ -7,12 +7,20 @@ import com.qk.management.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/depts")
 public class DeptController {
     @Autowired
     private DeptService deptService;
+    @GetMapping("/list")
+    public Result selectAll(){
+        List<Dept> res = deptService.selectAll();
+        return Result.success(res);
+    }
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id){
 //        int i = 1/0;

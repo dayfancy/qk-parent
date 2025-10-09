@@ -3,8 +3,12 @@ package com.qk.management.service;
 import com.qk.common.PageResult;
 import com.qk.entity.Dept;
 
+import java.util.List;
+
 public interface DeptService {
 
+
+    List<Dept> selectAll();
 
     void deleteById(Integer id);
 
