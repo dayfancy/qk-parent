@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @Author: RightSquare
  * @Date: 2025/10/9 14:22
@@ -19,6 +21,11 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @GetMapping("/list")
+    public Result selectAll(){
+        List<Course> res = courseService.selectAll();
+        return Result.success(res);
+    }
     @PutMapping
     public Result update(@RequestBody Course course){
         courseService.update(course);

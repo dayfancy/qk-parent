@@ -14,6 +14,9 @@ import java.util.List;
  */
 @Mapper
 public interface CourseMapper {
+    @Select("select * from course")
+    List<Course> selectAll();
+
     void update(Course course);
 
     @Select("select * from course where id = #{id}")
