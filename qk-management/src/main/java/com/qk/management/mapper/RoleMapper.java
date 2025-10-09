@@ -13,5 +13,7 @@ import java.util.List;
 @Mapper
 public interface RoleMapper {
 
+    void insert(Role role);
+
     List<Role> selectByPage(String name, String label);
 }

@@ -4,5 +4,7 @@ import com.qk.common.PageResult;
 import com.qk.entity.Role;
 
 public interface RoleService {
+    void add(Role role);
+
     PageResult<Role> page(String name, String label, Integer page, Integer pageSize);
 }

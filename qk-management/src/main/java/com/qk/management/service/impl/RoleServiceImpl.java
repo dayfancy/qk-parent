@@ -1,5 +1,6 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
@@ -9,6 +10,7 @@ import com.qk.management.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -20,6 +22,18 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
+
+    @Override
+    public void add(Role role) {
+        boolean hasNull = BeanUtil.hasNullField(role, "id", "remark", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("请填写完整信息");
+        }
+        role.setUpdateTime(LocalDateTime.now());
+        role.setCreateTime(LocalDateTime.now());
+        roleMapper.insert(role);
+    }
+
     @Override
     public PageResult<Role> page(String name, String label, Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
