@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @GetMapping("/{id}")
+    public Result selectById(@PathVariable Integer id){
+        Course course = courseService.selectById(id);
+        return Result.success(course);
+    }
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id){
         courseService.deleteById(id);
