@@ -22,6 +22,11 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+    @PutMapping
+    public Result update(@RequestBody Role role){
+        roleService.update(role);
+        return Result.success();
+    }
     @GetMapping("/{id}")
     public Result selectById(@PathVariable Integer id){
         Role role =  roleService.selectById(id);

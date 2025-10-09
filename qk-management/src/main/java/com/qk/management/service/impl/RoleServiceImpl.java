@@ -24,6 +24,18 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Override
+    public void update(Role role) {
+        //Parameter Checking
+        boolean hasNull = BeanUtil.hasNullField(role, "remark", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("请填写完整信息");
+        }
+        role.setUpdateTime(LocalDateTime.now());
+        role.setCreateTime(LocalDateTime.now());
+        roleMapper.update(role);
+    }
+
+    @Override
     public Role selectById(Integer id) {
         return roleMapper.selectById( id);
     }

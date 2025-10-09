@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.RoleMapper">
+    <update id="update">
+        UPDATE role
+        <set>
+            <if test="name != null and name!=''">
+                name = #{name},
+            </if>
+            <if test="label != null and label!=''">
+                label = #{label},
+            </if>
+            <if test="remark != null and remark!=''">
+                remark = #{remark},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
     <insert id="insert">
         INSERT INTO role(name,label,create_time,update_time
         <if test="remark != null and remark!=''">

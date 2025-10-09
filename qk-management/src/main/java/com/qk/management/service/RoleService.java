@@ -4,6 +4,8 @@ import com.qk.common.PageResult;
 import com.qk.entity.Role;
 
 public interface RoleService {
+    void update(Role role);
+
     Role selectById(Integer id);
 
     void deleteById(Integer id);
