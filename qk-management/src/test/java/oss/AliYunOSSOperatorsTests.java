@@ -1,6 +1,7 @@
 package oss;
 
-import com.qk.management.util.AliYunOSSOperators;
+
+import com.qk.common.util.AliYunOSSOperators;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

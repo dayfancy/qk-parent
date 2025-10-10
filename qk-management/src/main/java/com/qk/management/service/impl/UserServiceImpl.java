@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
+import com.qk.common.enums.ParamEnum;
+import com.qk.common.exception.CommonException;
 import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
 import com.qk.entity.domain.user.UserDO;
@@ -43,7 +45,7 @@ public class UserServiceImpl implements UserService {
         // Parameter Checking null
         boolean hasNull = BeanUtil.hasNullField(user, "id","password","deptId", "roleId", "image", "remark","createTime","updateTime");
         if (hasNull) {
-            throw new RuntimeException("请填写完整信息");
+            CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
         user.setUpdateTime(LocalDateTime.now());
         userMapper.update(user);
@@ -53,7 +55,7 @@ public class UserServiceImpl implements UserService {
     public void addUser(User user) {
         boolean hasNull = BeanUtil.hasNullField(user, "id","password","deptId", "roleId", "image", "remark","createTime","updateTime");
         if (hasNull) {
-            throw new RuntimeException("请填写完整信息");
+            CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
         // merge digest password
 

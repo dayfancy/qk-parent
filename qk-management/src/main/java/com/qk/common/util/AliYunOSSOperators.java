@@ -1,4 +1,4 @@
-package com.qk.management.util;
+package com.qk.common.util;
 
 import com.aliyun.oss.*;
 import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;

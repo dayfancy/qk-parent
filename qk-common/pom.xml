@@ -12,6 +12,11 @@
     <artifactId>qk-common</artifactId>
 
     <dependencies>
+        <!--这个依赖提供Spring基础环境-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
