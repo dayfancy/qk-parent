@@ -1,7 +1,6 @@
 package com.qk.management.mapper;
 
 import com.qk.dto.user.UserDTO;
-import com.qk.entity.Role;
 import com.qk.entity.User;
 import com.qk.entity.domain.user.UserDO;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,14 +15,6 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
-
-
-    @Select("select * from role where id = #{roleId}")
-    Role getRoleLabelById(Integer roleId);
-    @Select("select * from user where username = #{username}")
-    User selectByUserName(String username);
-
-    void delete(List<Integer> ids);
 
     List<UserDO> selectByRole(String roleLabel);
 

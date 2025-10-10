@@ -2,18 +2,12 @@ package com.qk.management.service;
 
 import com.qk.common.PageResult;
 import com.qk.dto.user.UserDTO;
-import com.qk.dto.user.UserLoginDTO;
 import com.qk.entity.User;
 import com.qk.entity.domain.user.UserDO;
-import com.qk.vo.user.UserLoginVO;
 
 import java.util.List;
 
 public interface UserService {
-
-    UserLoginVO login(UserLoginDTO dto);
-
-    void delete(List<Integer> ids);
 
     List<UserDO> selectByRole(String roleLabel);
 

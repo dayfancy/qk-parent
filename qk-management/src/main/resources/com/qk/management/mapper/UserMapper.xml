@@ -68,12 +68,7 @@
         </set>
         WHERE id = #{id}
     </update>
-    <delete id="delete">
-        DELETE FROM user WHERE id IN
-        <foreach item="id" collection="ids" separator="," open="(" close=")">
-            #{id}
-        </foreach>
-    </delete>
+
 
     <select id="selectByPage" resultType="com.qk.entity.domain.user.UserDO"
             parameterType="com.qk.dto.user.UserDTO">

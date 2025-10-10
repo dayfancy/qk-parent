@@ -20,17 +20,9 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(path = "/users")
-@SuppressWarnings("all")
 public class UserController {
     @Autowired
     private UserService userService;
-
-
-    @DeleteMapping("/{ids}")
-    public Result delete(@PathVariable List<Integer> ids){
-        userService.delete(ids);
-        return Result.success();
-    }
 
     @GetMapping("/role/{roleLabel}")
     public Result selectByRole(@PathVariable String roleLabel){
@@ -47,7 +39,6 @@ public class UserController {
     public Result selectById(@PathVariable Integer id){
         User user = userService.selectById(id);
         return Result.success(user);
-
     }
     @PostMapping
     public Result add(@RequestBody User user){

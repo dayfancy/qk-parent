@@ -1,4 +1,3 @@
-#file: noinspection SpringBootApplicationYaml
 #数据库连接信息
 spring:
   datasource:

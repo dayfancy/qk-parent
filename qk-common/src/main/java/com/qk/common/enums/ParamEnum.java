@@ -7,8 +7,6 @@ package com.qk.common.enums;
  */
 public enum ParamEnum implements Code {
     PARAM_ERROR("参数错误", 10001),
-    LOGIN_USER_NOT_EXIST("该用户不存在", 10002),
-    LOGIN_USER_PASSWORD_ERROR("密码错误", 10003)
     ;
     private final String msg;
     private final int code;

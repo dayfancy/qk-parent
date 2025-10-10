@@ -16,7 +16,7 @@ public class AliYunOSSOperators {
     private static final String BUCKET_NAME = "javaweb-rightsquare2025";
     private static final String REGION = "cn-hangzhou";
 
-    public String upload(byte[] content, String objectName){
+    public String upload(byte[] content, String objectName) throws Exception {
         // 创建OSSClient实例
         ClientBuilderConfiguration clientBuilderConfiguration = new ClientBuilderConfiguration();
         clientBuilderConfiguration.setSignatureVersion(SignVersion.V4);
@@ -36,7 +36,7 @@ public class AliYunOSSOperators {
             // 返回文件访问URL
             return "https://" + BUCKET_NAME + "." + ENDPOINT.substring(8) + "/" + objectName;
         } catch (Exception e) {
-            log.error("Caught an OSSException: {}", e.getMessage());
+            log.error("Caught an OSSException: " + e.getMessage());
             throw e;
         } finally {
             if (ossClient != null) {

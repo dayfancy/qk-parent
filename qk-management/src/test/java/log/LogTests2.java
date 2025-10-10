@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * @Description:
  */
 @Slf4j
-public class Log2Tests {
+public class LogTests2 {
     @Test
     public void testLog(){
         log.info("这是info日志");

@@ -14,7 +14,6 @@ import java.io.ByteArrayInputStream;
  * @Date: 2025/10/8 21:08
  * @Description: File upload Test
  */
-@SuppressWarnings("all")
 public class AliYunOssTests2 {
     public static void main(String[] args) throws Exception {
         // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
