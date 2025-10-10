@@ -41,6 +41,10 @@ public class FileHandlerController {
         }
 
     }
+
+
+
+
 //    @PostMapping("/upload")
 //    public String uploadFile(String username, Integer age, @RequestParam("file") MultipartFile file) throws IOException {
 //        log.info("文件的原始名称: {}",file.getOriginalFilename());

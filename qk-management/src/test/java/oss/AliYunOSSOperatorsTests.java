@@ -17,7 +17,7 @@ public class AliYunOSSOperatorsTests {
     private AliYunOSSOperators oss;
 
     @Test
-    public void testUpload() throws Exception {
+    public void testUpload()  {
         String url = oss.upload("hello world".getBytes(), "test.txt");
         System.out.println(url);
     }
