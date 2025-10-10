@@ -2,16 +2,20 @@ package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
 import com.qk.dto.user.UserDTO;
+import com.qk.dto.user.UserLoginDTO;
+import com.qk.entity.Role;
 import com.qk.entity.User;
 import com.qk.entity.domain.user.UserDO;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
+import com.qk.vo.user.UserLoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -30,11 +34,43 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    //TODO 登录的业务逻辑
+    @Override
+    public UserLoginVO login(UserLoginDTO dto) {
+        //1. Parameter Checking null
+        boolean hasNull = BeanUtil.hasNullField(dto);
+        if (hasNull) {
+            CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
+        }
+        //2.username->select datebase
+        User dbuser = userMapper.selectByUserName(dto.getUsername());
+        //3.1 Data Validity Check
+        if (ObjectUtil.isNull(dbuser)) {
+            CommonException.throwCommonException(ParamEnum.LOGIN_USER_NOT_EXIST);
+        }
+        //3.2 Validation Check username and password ->digest
+        String userPassword = DigestUtils.md5DigestAsHex(dto.getPassword().getBytes());
+        //4.psword->digest
+        if (!ObjectUtil.equal(dbuser.getPassword(), userPassword)) {
+            CommonException.throwCommonException(ParamEnum.LOGIN_USER_PASSWORD_ERROR);
+        }
+        Role role = userMapper.getRoleLabelById(dbuser.getRoleId());
+        //5.return
+        return UserLoginVO.builder()
+                .id(dbuser.getId())
+                .username(dbuser.getUsername())
+                .name(dbuser.getName())
+                .image(dbuser.getImage())
+                .roleLabel(role.getLabel())
+                //TODO .token 令牌技术
+                .build();
+    }
+
     @Override
     public void delete(List<Integer> ids) {
         // Parameter Checking null
         boolean isNotEmpty = CollectionUtil.isNotEmpty(ids);
-        if (!isNotEmpty){
+        if (!isNotEmpty) {
             CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
         userMapper.delete(ids);
@@ -54,7 +90,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         // Parameter Checking null
-        boolean hasNull = BeanUtil.hasNullField(user, "id","password","deptId", "roleId", "image", "remark","createTime","updateTime");
+        boolean hasNull = BeanUtil.hasNullField(user, "id", "password", "deptId", "roleId", "image", "remark", "createTime", "updateTime");
         if (hasNull) {
             CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
@@ -64,7 +100,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-        boolean hasNull = BeanUtil.hasNullField(user, "id","password","deptId", "roleId", "image", "remark","createTime","updateTime");
+        boolean hasNull = BeanUtil.hasNullField(user, "id", "password", "deptId", "roleId", "image", "remark", "createTime", "updateTime");
         if (hasNull) {
             CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
@@ -80,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageResult<UserDO> selectByPage(UserDTO dto) {
-        PageHelper.startPage(dto.getPage(),dto.getPageSize());
+        PageHelper.startPage(dto.getPage(), dto.getPageSize());
         List<UserDO> list = userMapper.selectByPage(dto);
         Page<UserDO> page = (Page<UserDO>) list;
         return PageResult.<UserDO>builder()
