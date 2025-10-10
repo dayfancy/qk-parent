@@ -1,4 +1,4 @@
-package com.qk.management.oss;
+package oss;
 
 import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;

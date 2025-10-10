@@ -1,4 +1,4 @@
-package com.qk.management.oss;
+package oss;
 
 import com.aliyun.oss.*;
 import com.aliyun.oss.common.auth.CredentialsProviderFactory;
