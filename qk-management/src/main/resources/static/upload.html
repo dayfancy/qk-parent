@@ -7,8 +7,12 @@
 <body>
 
     <form action="/upload" method="post" enctype="multipart/form-data">
-        姓名: <input type="text" name="username"><br>
-        年龄: <input type="text" name="age"><br>
+        姓名: <label>
+        <input type="text" name="username">
+    </label><br>
+        年龄: <label>
+        <input type="text" name="age">
+    </label><br>
         头像: <input type="file" name="file"><br>
         <input type="submit" value="提交">
     </form>

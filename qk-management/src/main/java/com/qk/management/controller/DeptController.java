@@ -13,6 +13,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/depts")
+@SuppressWarnings("all")
 public class DeptController {
     @Autowired
     private DeptService deptService;

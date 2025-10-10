@@ -5,6 +5,7 @@ package com.qk.common.exception;
  * @Date: 2025/10/10 16:01
  * @Description: BaseException
  */
+@SuppressWarnings("unused")
 public class BaseException extends RuntimeException{
     public BaseException() {
     }

@@ -20,9 +20,11 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(path = "/users")
+@SuppressWarnings("all")
 public class UserController {
     @Autowired
     private UserService userService;
+
 
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable List<Integer> ids){

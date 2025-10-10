@@ -18,6 +18,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/roles")
+@SuppressWarnings("all")
 public class RoleController {
 
     @Autowired
