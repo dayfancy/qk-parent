@@ -20,6 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(path = "/users")
+@SuppressWarnings("all")
 public class UserController {
     @Autowired
     private UserService userService;

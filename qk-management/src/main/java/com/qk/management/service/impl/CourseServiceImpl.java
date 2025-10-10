@@ -19,6 +19,7 @@ import java.util.List;
  * @Description: Course Service Impl
  */
 @Service
+@SuppressWarnings("all")
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;

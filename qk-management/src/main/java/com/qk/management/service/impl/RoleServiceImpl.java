@@ -19,6 +19,7 @@ import java.util.List;
  * @Description: Role Impl class
  */
 @Service
+@SuppressWarnings("all")
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;

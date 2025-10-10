@@ -18,6 +18,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(path = "/courses")
+@SuppressWarnings("all")
 public class CourseController {
     @Autowired
     private CourseService courseService;

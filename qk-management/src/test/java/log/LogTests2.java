@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
  * @Description:
  */
 @Slf4j
+@SuppressWarnings("all")
 public class LogTests2 {
     @Test
     public void testLog(){
