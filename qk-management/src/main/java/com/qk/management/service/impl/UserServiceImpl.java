@@ -1,6 +1,7 @@
 package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
@@ -28,6 +29,16 @@ public class UserServiceImpl implements UserService {
     private static final String DEFAULT_PASSWORD_SUFIX = "123";
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public void delete(List<Integer> ids) {
+        // Parameter Checking null
+        boolean isNotEmpty = CollectionUtil.isNotEmpty(ids);
+        if (!isNotEmpty){
+            CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
+        }
+        userMapper.delete(ids);
+    }
 
     @Override
     public List<UserDO> selectByRole(String roleLabel) {

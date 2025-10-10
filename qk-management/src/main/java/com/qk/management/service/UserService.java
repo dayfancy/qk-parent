@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface UserService {
 
+    void delete(List<Integer> ids);
+
     List<UserDO> selectByRole(String roleLabel);
 
     User selectById(Integer id);

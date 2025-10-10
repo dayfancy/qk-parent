@@ -16,6 +16,10 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
+
+
+    void delete(List<Integer> ids);
+
     List<UserDO> selectByRole(String roleLabel);
 
     @Select("select * from user where id = #{id}")
