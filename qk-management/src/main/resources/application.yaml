@@ -12,14 +12,17 @@ spring:
         max-file-size: 10MB
         max-request-size: 10MB
 
-#mybatis配置
-mybatis:
+
+## 原来mybatis配置替换成MP配置
+mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
-    mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      id-type: auto
 
-
+### 阿里云OSS 自定义配置信息
 aliyun:
   oss:
     endpoint: https://oss-cn-hangzhou.aliyuncs.com
