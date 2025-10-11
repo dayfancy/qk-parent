@@ -22,6 +22,12 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
+    @PutMapping
+    public Result update(@RequestBody Activity activity){
+    activityService.update(activity);
+    return Result.success();
+    }
+
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id){
     Activity activity = activityService.getById(id);

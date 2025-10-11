@@ -2,6 +2,7 @@ package com.qk.management.service.impl;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
@@ -27,6 +28,30 @@ import java.util.List;
 public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityMapper activityMapper;
+
+    @Override
+    public void update(Activity activity) {
+        //1.Param Checking
+        boolean hasNull = BeanUtil.hasNullField(activity, "id", "discount", "voucher", "createTime", "updateTime");
+        if (hasNull) {
+            CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
+        }
+        //2.update
+        activity.setUpdateTime(LocalDateTime.now());
+        UpdateWrapper<Activity> activityUpdateWrapper = new UpdateWrapper<>();
+        activityUpdateWrapper.set("channel", activity.getChannel())
+                .set("name", activity.getName())
+                .set("start_time", activity.getStartTime())
+                .set("end_time", activity.getEndTime())
+                .set("description", activity.getDescription())
+                .set( "type", activity.getType())
+                .set( "discount", activity.getDiscount())
+                .set( "voucher", activity.getVoucher())
+                .set( "create_time", activity.getCreateTime())
+                .set( "update_time", activity.getUpdateTime());
+        UpdateWrapper<Activity> id = activityUpdateWrapper.eq("id", activity.getId());
+        activityMapper.update(id);
+    }
 
     @Override
     public Activity getById(Integer id) {

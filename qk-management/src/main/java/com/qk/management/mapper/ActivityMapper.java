@@ -11,4 +11,6 @@ import java.util.List;
 public interface ActivityMapper extends BaseMapper<Activity> {
 
     List<Activity> listByPage(ActivityDTO dto);
+
+
 }

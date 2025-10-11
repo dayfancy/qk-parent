@@ -10,6 +10,8 @@ import com.qk.entity.Activity;
  * @Description: ActivityService
  */
 public interface ActivityService {
+    void update(Activity activity);
+
     Activity getById(Integer id);
 
     void deleteById(Integer id);
