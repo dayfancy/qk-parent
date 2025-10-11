@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
+import com.qk.common.util.JwtUtil;
 import com.qk.dto.user.UserDTO;
 import com.qk.dto.user.UserLoginDTO;
 import com.qk.entity.Role;
@@ -21,7 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: RightSquare
@@ -55,6 +58,12 @@ public class UserServiceImpl implements UserService {
             CommonException.throwCommonException(ParamEnum.LOGIN_USER_PASSWORD_ERROR);
         }
         Role role = userMapper.getRoleLabelById(dbuser.getRoleId());
+        // create claims
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", dbuser.getId());
+        claims.put("username", dbuser.getUsername());
+
+
         //5.return
         return UserLoginVO.builder()
                 .id(dbuser.getId())
@@ -62,7 +71,7 @@ public class UserServiceImpl implements UserService {
                 .name(dbuser.getName())
                 .image(dbuser.getImage())
                 .roleLabel(role.getLabel())
-                //TODO .token 令牌技术
+                .token(JwtUtil.generateToken(claims))
                 .build();
     }
 
