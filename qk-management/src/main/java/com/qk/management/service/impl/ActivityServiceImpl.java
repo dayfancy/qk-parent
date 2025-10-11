@@ -1,18 +1,20 @@
 package com.qk.management.service.impl;
 
+
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.crypto.digest.DigestUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
+import com.qk.common.enums.ParamEnum;
+import com.qk.common.exception.CommonException;
 import com.qk.dto.activity.ActivityDTO;
 import com.qk.entity.Activity;
 import com.qk.management.mapper.ActivityMapper;
 import com.qk.management.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -25,6 +27,19 @@ import java.util.List;
 public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityMapper activityMapper;
+
+    @Override
+    public void add(Activity activity) {
+        //1.Param Checking
+        boolean hasNull = BeanUtil.hasNullField(activity, "id","discount", "voucher","createTime", "updateTime");
+        if (hasNull) {
+            CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
+        }
+        activity.setUpdateTime(LocalDateTime.now());
+        activity.setCreateTime(LocalDateTime.now());
+        activityMapper.insert(activity);
+    }
+
     @Override
     public PageResult<Activity> listByPage(ActivityDTO dto) {
         //1.Param Checking not

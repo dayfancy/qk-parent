@@ -10,5 +10,7 @@ import com.qk.entity.Activity;
  * @Description: ActivityService
  */
 public interface ActivityService {
+    void add(Activity activity);
+
     PageResult<Activity> listByPage(ActivityDTO dto);
 }
