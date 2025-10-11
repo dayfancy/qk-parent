@@ -1,7 +1,6 @@
 package com.qk.management.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.qk.common.PageResult;
 import com.qk.entity.Activity;
 import org.apache.ibatis.annotations.Mapper;
 
