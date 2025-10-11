@@ -30,6 +30,11 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMapper activityMapper;
 
     @Override
+    public List<Activity> getByType(Integer type) {
+        return activityMapper.selectList(new UpdateWrapper<Activity>().eq("type", type));
+    }
+
+    @Override
     public void update(Activity activity) {
         //1.Param Checking
         boolean hasNull = BeanUtil.hasNullField(activity, "id", "discount", "voucher", "createTime", "updateTime");

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @Author: RightSquare
  * @Date: 2025/10/11 19:26
@@ -21,6 +23,12 @@ import org.springframework.web.bind.annotation.*;
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
+
+    @GetMapping("/type/{type}")
+    public Result getByType(@PathVariable Integer type){
+         List<Activity> activities =activityService.getByType(type);
+         return Result.success(activities);
+    }
 
     @PutMapping
     public Result update(@RequestBody Activity activity){
