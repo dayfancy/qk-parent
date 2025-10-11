@@ -29,6 +29,11 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMapper activityMapper;
 
     @Override
+    public void deleteById(Integer id) {
+        activityMapper.deleteById(id);
+    }
+
+    @Override
     public void add(Activity activity) {
         //1.Param Checking
         boolean hasNull = BeanUtil.hasNullField(activity, "id","discount", "voucher","createTime", "updateTime");

@@ -10,6 +10,8 @@ import com.qk.entity.Activity;
  * @Description: ActivityService
  */
 public interface ActivityService {
+    void deleteById(Integer id);
+
     void add(Activity activity);
 
     PageResult<Activity> listByPage(ActivityDTO dto);
