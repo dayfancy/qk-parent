@@ -12,6 +12,12 @@
     <artifactId>qk-common</artifactId>
 
     <dependencies>
+        <!-- JWT依赖-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+        <!-- JWT依赖-->
         <!--这个依赖提供Spring基础环境-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
