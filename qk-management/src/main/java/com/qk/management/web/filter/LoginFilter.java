@@ -4,7 +4,6 @@ import cn.hutool.core.util.ObjectUtil;
 import com.qk.common.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,8 @@ import java.io.IOException;
  * @Description:
  */
 @Slf4j
-@WebFilter("/*")
+//@WebFilter("/*")
+@SuppressWarnings("all")
 public class LoginFilter implements Filter {
     private static final String LOGIN_PATH = "/login";
     private static final String TOKEN_HEADER_NAME = "token";

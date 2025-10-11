@@ -52,6 +52,7 @@ public class DeptController {
                        @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
         PageResult<Dept> pageResult = deptService.page(name, status, page, pageSize);
         log.info("分页查询部门,参数:name:{},status:{},page:{},pageSize:{}", name, status, page, pageSize);
+        log.info("-----------------------部门列表的方法-----------------------------");
         return Result.success(pageResult);
     }
 
