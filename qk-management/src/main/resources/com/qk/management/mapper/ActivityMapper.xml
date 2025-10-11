@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qk.management.mapper.ActivityMapper">
+
+    <select id="listByPage" resultType="com.qk.entity.Activity">
+        SELECT * FROM activity
+        <where>
+            <if test="channel != null ">
+                AND channel = #{channel}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="status == 1">
+                AND start_time &gt; NOW()
+            </if>
+            <if test="status == 2">
+                AND start_time &lt;= NOW() AND end_time &gt;= NOW()
+            </if>
+            <if test="status == 3">
+                AND end_time &lt; NOW()
+            </if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
+</mapper>
