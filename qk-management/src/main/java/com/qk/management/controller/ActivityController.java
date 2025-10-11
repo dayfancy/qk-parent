@@ -22,6 +22,12 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id){
+    Activity activity = activityService.getById(id);
+    return Result.success(activity);
+    }
+
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id){
     activityService.deleteById(id);

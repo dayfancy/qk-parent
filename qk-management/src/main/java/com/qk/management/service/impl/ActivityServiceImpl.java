@@ -29,6 +29,11 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMapper activityMapper;
 
     @Override
+    public Activity getById(Integer id) {
+        return activityMapper.selectById(id);
+    }
+
+    @Override
     public void deleteById(Integer id) {
         activityMapper.deleteById(id);
     }
@@ -36,7 +41,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public void add(Activity activity) {
         //1.Param Checking
-        boolean hasNull = BeanUtil.hasNullField(activity, "id","discount", "voucher","createTime", "updateTime");
+        boolean hasNull = BeanUtil.hasNullField(activity, "id", "discount", "voucher", "createTime", "updateTime");
         if (hasNull) {
             CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
@@ -55,7 +60,7 @@ public class ActivityServiceImpl implements ActivityService {
         //4.Encapsulation
         Page<Activity> pageList = (Page<Activity>) list;
         //5.Return
-       return  PageResult.<Activity>builder()
+        return PageResult.<Activity>builder()
                 .total(pageList.getTotal())
                 .rows(pageList.getResult())
                 .build();
