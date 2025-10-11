@@ -18,7 +18,7 @@ import java.io.IOException;
 @Slf4j
 //@WebFilter("/*")
 @SuppressWarnings("all")
-public class LoginFilter implements Filter {
+public class LoginCheckFilter implements Filter {
     private static final String LOGIN_PATH = "/login";
     private static final String TOKEN_HEADER_NAME = "token";
     @Override
