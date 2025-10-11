@@ -26,7 +26,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mybatis-spring-boot.version>3.0.4</mybatis-spring-boot.version>
+        <mybatis-plus-spring-boot.version>3.5.8</mybatis-plus-spring-boot.version>
         <lombok.version>1.18.38</lombok.version>
         <pagehelper.version>2.1.1</pagehelper.version>
         <hutool-all.version>5.8.40</hutool-all.version>
@@ -40,6 +40,13 @@
     <!--当springboot 没有管理依赖版本，可以自己在自己的父工程中进行依赖管理-->
     <dependencyManagement>
         <dependencies>
+            <!-- MybatisPlus的依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus-spring-boot.version}</version>
+            </dependency>
+            <!-- MybatisPlus的依赖 -->
             <!-- JWT依赖-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -47,11 +54,6 @@
                 <version>${jjwt.version}</version>
             </dependency>
             <!-- JWT依赖-->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-spring-boot.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
