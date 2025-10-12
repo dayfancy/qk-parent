@@ -127,6 +127,12 @@ public class UserServiceImpl implements UserService {
     public PageResult<UserDO> selectByPage(UserDTO dto) {
         PageHelper.startPage(dto.getPage(), dto.getPageSize());
         List<UserDO> list = userMapper.selectByPage(dto);
+        //1.从数据库中查出来手机号
+        list.forEach(item -> {
+            //2.处理手机号
+            //3.装进去
+            item.setPhone(item.getPhone().replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2"));
+        });
         Page<UserDO> page = (Page<UserDO>) list;
         return PageResult.<UserDO>builder()
                 .total(page.getTotal())

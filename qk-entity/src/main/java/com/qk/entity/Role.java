@@ -1,5 +1,6 @@
 package com.qk.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,5 +17,6 @@ public class Role {
     private String label; // 角色标识
     private String remark; // 备注
     private LocalDateTime createTime; // 创建时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime; // 修改时间
 }
