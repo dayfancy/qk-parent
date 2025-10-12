@@ -25,6 +25,8 @@ public class CleanTask {
     private UserMapper userMapper;
     @Autowired
     private AliYunOSSOperators aliYunOSSOperators;
+
+    private static final String ALIYUN_OSS_PREFIX = "https://javaweb-rightsquare2025.oss-cn-hangzhou.aliyuncs.com/";
     @Scheduled(cron = "0 0 12 ? * ? ")
     public void clean() throws ClientException {
         // 获取所有用户
@@ -35,7 +37,7 @@ public class CleanTask {
         for (OSSObjectSummary aliyunFile : aliyunFiles) {
             String deleteFile = aliyunFile.getKey();
             //要比对的文件名
-            String fileName = "https://javaweb-rightsquare2025.oss-cn-hangzhou.aliyuncs.com/"+ aliyunFile.getKey();
+            String fileName = ALIYUN_OSS_PREFIX+ aliyunFile.getKey();
             // 检查该文件是否被任何用户引用
             boolean isFileInUse = false;
             for (User user : userList) {
