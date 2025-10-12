@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
+import com.qk.common.enums.ParamEnum;
+import com.qk.common.exception.CommonException;
 import com.qk.entity.Course;
 import com.qk.management.mapper.CourseMapper;
 import com.qk.management.service.CourseService;
@@ -54,7 +56,7 @@ public class CourseServiceImpl implements CourseService {
         // Parameter Checking
         boolean hasNull = BeanUtil.hasNullField(course, "id", "description", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("请填写完整信息");
+            CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
         course.setCreateTime(LocalDateTime.now());
         course.setUpdateTime(LocalDateTime.now());

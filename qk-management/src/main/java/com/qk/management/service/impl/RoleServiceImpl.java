@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
+import com.qk.common.enums.ParamEnum;
+import com.qk.common.exception.CommonException;
 import com.qk.entity.Role;
 import com.qk.management.mapper.RoleMapper;
 import com.qk.management.service.RoleService;
@@ -55,7 +57,7 @@ public class RoleServiceImpl implements RoleService {
     public void add(Role role) {
         boolean hasNull = BeanUtil.hasNullField(role, "id", "remark", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("请填写完整信息");
+            CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
         role.setUpdateTime(LocalDateTime.now());
         role.setCreateTime(LocalDateTime.now());

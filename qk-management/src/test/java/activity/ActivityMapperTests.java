@@ -1,6 +1,5 @@
 package activity;
 
-import com.qk.common.PageResult;
 import com.qk.entity.Activity;
 import com.qk.management.QkManagementApplication;
 import com.qk.management.mapper.ActivityMapper;
@@ -16,6 +15,7 @@ import java.time.LocalDateTime;
  * @Description:
  */
 @SpringBootTest(classes = QkManagementApplication.class)
+@SuppressWarnings("all")
 public class ActivityMapperTests {
     @Autowired
     private ActivityMapper activityMapper;
