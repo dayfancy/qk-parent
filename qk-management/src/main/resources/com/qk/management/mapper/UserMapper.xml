@@ -113,4 +113,5 @@
         WHERE
         r.label = #{roleLabel}
     </select>
+
 </mapper>
