@@ -1,12 +1,13 @@
 package com.qk.management.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.qk.common.PageResult;
 import com.qk.entity.Course;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public interface CourseService {
+public interface CourseService extends IService<Course> {
     List<Course> selectBySubject(Integer subjcet);
 
     List<Course> selectAll();

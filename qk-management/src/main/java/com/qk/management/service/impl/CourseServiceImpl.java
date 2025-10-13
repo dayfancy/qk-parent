@@ -1,6 +1,7 @@
 package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @Service
 @SuppressWarnings("all")
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
 
@@ -73,4 +74,5 @@ public class CourseServiceImpl implements CourseService {
                 .rows(pageList.getResult())
                 .build();
     }
+
 }
