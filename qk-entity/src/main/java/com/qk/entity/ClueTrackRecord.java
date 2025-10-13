@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SuppressWarnings("all")
 public class ClueTrackRecord {
     // 跟进记录id, 主键
     private Integer id;

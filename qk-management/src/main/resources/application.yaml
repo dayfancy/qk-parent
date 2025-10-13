@@ -18,6 +18,7 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+  mapper-locations: com.qk.management.mapper/*.xml
   global-config:
     db-config:
       id-type: auto

@@ -14,12 +14,6 @@
 
 
     <dependencies>
-        <!-- MybatisPlus的依赖 -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-        </dependency>
-        <!-- MybatisPlus的依赖 -->
         <!--引入项目所需要模块-->
         <!--引入实体模块-->
         <dependency>
