@@ -2,9 +2,10 @@ package com.qk.management.service;
 
 import com.qk.common.PageResult;
 import com.qk.entity.Course;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public interface CourseService {
     List<Course> selectBySubject(Integer subjcet);
 

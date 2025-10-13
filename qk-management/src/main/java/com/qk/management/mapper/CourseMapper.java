@@ -1,5 +1,6 @@
 package com.qk.management.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qk.entity.Course;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +14,7 @@ import java.util.List;
  * @Description: CourseMapper to DateBase
  */
 @Mapper
-public interface CourseMapper {
+public interface CourseMapper extends BaseMapper<Course> {
     @Select("select * from course where subject = #{subject}")
     List<Course> selectBySubject(Integer subjcet);
 

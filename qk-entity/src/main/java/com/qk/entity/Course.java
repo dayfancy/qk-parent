@@ -1,7 +1,10 @@
 package com.qk.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +14,9 @@ import java.time.LocalDateTime;
  * @Description: Course Entity
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Course {
     private Integer id; //课程id，主键
     private Integer subject; //课程学科，1:AI智能应用开发(Java), 2:AI大模型开发(Python)，3:AI鸿蒙开发，4:AI大数据，5:AI嵌入式，6:AI测试，7:AI运维
