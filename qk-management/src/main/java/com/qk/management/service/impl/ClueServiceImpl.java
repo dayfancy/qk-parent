@@ -58,7 +58,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         //更新clue表的数据
         this.updateById(clue);
         //更新clue_track_record表数据
-        ClueTrackRecord clueTrackRecord = BeanUtil.copyProperties(clue, ClueTrackRecord.class);
+        ClueTrackRecord clueTrackRecord = BeanUtil.copyProperties(dto, ClueTrackRecord.class);
         clueTrackRecord.setCreateTime(LocalDateTime.now());
         clueTrackRecord.setId(null);
         clueTrackRecord.setClueId(clue.getId());

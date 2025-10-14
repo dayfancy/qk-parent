@@ -25,6 +25,8 @@ public class ClueTrackRecordVO {
     private String record;
     // 下次跟进时间
     private LocalDateTime nextTime;
+    // 跟进时间
+    private LocalDateTime createTime;
     // 跟进人姓名
     private String assignName;
 }
