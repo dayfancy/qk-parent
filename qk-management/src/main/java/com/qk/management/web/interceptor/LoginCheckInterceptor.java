@@ -1,6 +1,7 @@
 package com.qk.management.web.interceptor;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.qk.common.util.CurrentUserContextHolders;
 import com.qk.common.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,13 +34,20 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             Claims claims = JwtUtil.parseToken(token);
             Object username = claims.get("username");
             log.info("用户名是:{}", username);
-            Object id = claims.get("id");
-            log.info("用户id是:{}", id);
+            Integer userId = claims.get("id", Integer.class);
+            //把登录的Id存入ThreadLocal
+            CurrentUserContextHolders.set(userId);
+            log.info("用户id是:{}", userId);
             return true;
 
         } catch (Exception e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
         }
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        CurrentUserContextHolders.remove();
     }
 }

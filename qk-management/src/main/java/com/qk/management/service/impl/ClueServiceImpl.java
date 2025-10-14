@@ -11,6 +11,7 @@ import com.qk.common.constant.ClueStatusConstants;
 import com.qk.common.constant.ClueTrackRecordTypes;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
+import com.qk.common.util.CurrentUserContextHolders;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueListDTO;
 import com.qk.dto.clue.UpdateClueInfoDTO;
@@ -64,7 +65,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         clueTrackRecord.setClueId(clue.getId());
         clueTrackRecord.setType(ClueTrackRecordTypes.NORMAL);
         //TODO 设置跟进用户id的当前用户 此时当前用户的id还在拦截器中
-        clueTrackRecord.setUserId(2);
+        clueTrackRecord.setUserId(CurrentUserContextHolders.get());
         this.clueTrackRecordMapper.insert(clueTrackRecord);
     }
 
