@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.ClueMapper">
+    <select id="selectByPage" resultType="com.qk.entity.domain.clue.ClueDO">
+        SELECT
+        c.*,
+        u.name AS assignName
+        FROM clue c
+        LEFT JOIN user u ON c.user_id = u.id
+        <where>
+            <if test="phone != null and phone != ''">
+                AND c.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+            <if test="channel != null">
+                AND c.channel = #{channel}
+            </if>
+            <if test="status != null">
+                AND c.status = #{status}
+            </if>
+            <if test="assignName != null and assignName != ''">
+                AND u.name LIKE CONCAT('%',#{assignName},'%')
+            </if>
+            <if test="clueId != null">
+                AND c.id = #{clueId}
+            </if>
+        </where>
+        ORDER BY c.update_time DESC
+    </select>
 </mapper>
