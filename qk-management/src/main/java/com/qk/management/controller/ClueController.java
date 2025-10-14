@@ -2,12 +2,16 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
+import com.qk.common.constant.ClueStatusConstants;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueListDTO;
+import com.qk.entity.Clue;
 import com.qk.entity.domain.clue.ClueDO;
 import com.qk.management.service.ClueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * @Author: RightSquare
@@ -20,6 +24,17 @@ import org.springframework.web.bind.annotation.*;
 public class ClueController {
     @Autowired
     private ClueService clueService;
+
+    @PutMapping("/assign/{clueId}/{userId}")
+    public Result updateById(@PathVariable Integer clueId, @PathVariable Integer userId){
+        clueService.updateById(Clue.builder()
+                        .id(clueId)
+                        .userId(userId)
+                        .updateTime(LocalDateTime.now())
+                        .status(ClueStatusConstants.WAIT_FOLLOW_UP)
+                .build());
+        return Result.success();
+    }
 
 
     @GetMapping

@@ -7,4 +7,6 @@ package com.qk.common.constant;
  */
 public class ClueStatusConstants {
     public static final Integer WAIT_ALLOCATION = 1;
+    //待跟进
+    public static final Integer WAIT_FOLLOW_UP = 2;
 }
