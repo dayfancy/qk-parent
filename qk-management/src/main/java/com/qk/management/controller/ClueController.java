@@ -8,6 +8,7 @@ import com.qk.dto.clue.ClueListDTO;
 import com.qk.entity.Clue;
 import com.qk.entity.domain.clue.ClueDO;
 import com.qk.management.service.ClueService;
+import com.qk.vo.clue.ClueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,13 @@ import java.time.LocalDateTime;
 public class ClueController {
     @Autowired
     private ClueService clueService;
+
+
+    @GetMapping("/{id}")
+    public Result selectClueInfoById(@PathVariable Integer clueId){
+         ClueVO clueVO = clueService.selectClueInfoById(clueId);
+        return Result.success(clueVO);
+    }
 
     @PutMapping("/assign/{clueId}/{userId}")
     public Result updateById(@PathVariable Integer clueId, @PathVariable Integer userId){
