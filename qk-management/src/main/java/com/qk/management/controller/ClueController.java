@@ -5,6 +5,7 @@ import com.qk.common.Result;
 import com.qk.common.constant.ClueStatusConstants;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueListDTO;
+import com.qk.dto.clue.UpdateClueInfoDTO;
 import com.qk.entity.Clue;
 import com.qk.entity.domain.clue.ClueDO;
 import com.qk.management.service.ClueService;
@@ -25,6 +26,12 @@ import java.time.LocalDateTime;
 public class ClueController {
     @Autowired
     private ClueService clueService;
+
+    @PutMapping
+    public Result updateClueInfoById(@RequestBody UpdateClueInfoDTO dto) {
+        clueService.updateClueInfoById(dto);
+        return Result.success();
+    }
 
 
     @GetMapping("/{id}")

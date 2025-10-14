@@ -9,4 +9,6 @@ public class ClueStatusConstants {
     public static final Integer WAIT_ALLOCATION = 1;
     //待跟进
     public static final Integer WAIT_FOLLOW_UP = 2;
+    //跟进中
+    public static final Integer FOLLOW_UP = 3;
 }

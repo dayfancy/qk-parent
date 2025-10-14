@@ -8,10 +8,12 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
 import com.qk.common.constant.ClueStatusConstants;
+import com.qk.common.constant.ClueTrackRecordTypes;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueListDTO;
+import com.qk.dto.clue.UpdateClueInfoDTO;
 import com.qk.entity.Clue;
 import com.qk.entity.ClueTrackRecord;
 import com.qk.entity.User;
@@ -44,6 +46,27 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     private UserMapper userMapper;
     @Autowired
     private ClueTrackRecordMapper clueTrackRecordMapper;
+
+    @Override
+    public void updateClueInfoById(UpdateClueInfoDTO dto) {
+        Clue clue = BeanUtil.copyProperties(dto, Clue.class);
+        clue.setUpdateTime(LocalDateTime.now());
+        //线索跟进状态 如果是第一次被跟进状态 status要改成跟进中
+        if(clue.getStatus() == ClueStatusConstants.WAIT_FOLLOW_UP){
+            clue.setStatus(ClueStatusConstants.FOLLOW_UP);
+        }
+        //更新clue表的数据
+        this.updateById(clue);
+        //更新clue_track_record表数据
+        ClueTrackRecord clueTrackRecord = BeanUtil.copyProperties(clue, ClueTrackRecord.class);
+        clueTrackRecord.setCreateTime(LocalDateTime.now());
+        clueTrackRecord.setId(null);
+        clueTrackRecord.setClueId(clue.getId());
+        clueTrackRecord.setType(ClueTrackRecordTypes.NORMAL);
+        //TODO 设置跟进用户id的当前用户 此时当前用户的id还在拦截器中
+        clueTrackRecord.setUserId(2);
+        this.clueTrackRecordMapper.insert(clueTrackRecord);
+    }
 
     @Override
     public PageResult<ClueDO> selectByPage(ClueListDTO dto) {
