@@ -1,5 +1,6 @@
 package com.qk.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,8 +40,10 @@ public class Clue {
     // 意向等级, 1:近期学习、2:打算学习(考虑中)、3:进行了解、4:打酱油
     private Integer level;
     // 下次跟进时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime nextTime;
     // 创建时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
     // 修改时间
     private LocalDateTime updateTime;
