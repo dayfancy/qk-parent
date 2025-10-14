@@ -57,14 +57,14 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     }
 
     @Override
-    public ClueVO selectClueInfoById(Integer clueId) {
+    public ClueVO selectClueInfoById(Integer Id) {
         //clueId -> table clue -> clueVO
-        Clue clue = this.baseMapper.selectById(clueId);
+        Clue clue = this.baseMapper.selectById(Id);
         //according to ID select username
         Integer userId = clue.getUserId();
         User user = userMapper.selectById(userId);
         List<ClueTrackRecord> clueTrackRecords = clueTrackRecordMapper.selectList(Wrappers.lambdaQuery(ClueTrackRecord.class)
-                .in(ClueTrackRecord::getClueId, clueId));
+                .in(ClueTrackRecord::getClueId, Id));
         //组装数据
         ClueVO clueVO = BeanUtil.copyProperties(clue, ClueVO.class);
         List<ClueTrackRecordVO> list = clueTrackRecords.stream().map(item -> {

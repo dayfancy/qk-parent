@@ -28,8 +28,8 @@ public class ClueController {
 
 
     @GetMapping("/{id}")
-    public Result selectClueInfoById(@PathVariable Integer clueId){
-         ClueVO clueVO = clueService.selectClueInfoById(clueId);
+    public Result selectClueInfoById(@PathVariable Integer id){
+         ClueVO clueVO = clueService.selectClueInfoById(id);
         return Result.success(clueVO);
     }
 

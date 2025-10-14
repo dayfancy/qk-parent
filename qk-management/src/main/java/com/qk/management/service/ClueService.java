@@ -9,7 +9,7 @@ import com.qk.entity.domain.clue.ClueDO;
 import com.qk.vo.clue.ClueVO;
 
 public interface ClueService extends IService<Clue> {
-    ClueVO selectClueInfoById(Integer clueId);
+    ClueVO selectClueInfoById(Integer Id);
 
     void add(ClueDTO dto);
 
