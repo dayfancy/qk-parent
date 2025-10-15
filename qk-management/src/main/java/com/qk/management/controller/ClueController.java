@@ -27,6 +27,12 @@ public class ClueController {
     @Autowired
     private ClueService clueService;
 
+    @PutMapping("/toBusiness/{id}")
+    public Result toBusiness(@PathVariable Integer id){
+        clueService.toBusiness(id);
+        return Result.success();
+    }
+
     @PutMapping
     public Result updateClueInfoById(@RequestBody UpdateClueInfoDTO dto) {
         clueService.updateClueInfoById(dto);

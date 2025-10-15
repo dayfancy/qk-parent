@@ -32,7 +32,7 @@ public class Clue {
     private String qq;
     // 归属人id，关联用户id
     private Integer userId;
-    // 线索状态，1:待分配, 2:跟进中, 3:伪线索, 4:转为商机
+
     private Integer status;
     // 意向学科，1:ai智能应用开发(java), 2:ai大模型开发(python)，3:ai鸿蒙开发，4:ai大数据，5:ai嵌入式，6:ai测试，7:ai运维
     private Integer subject;

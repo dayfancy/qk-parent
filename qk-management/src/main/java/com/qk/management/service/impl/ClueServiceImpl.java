@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
+import com.qk.common.constant.ClueBusinessStatusConstants;
 import com.qk.common.constant.ClueStatusConstants;
 import com.qk.common.constant.ClueTrackRecordTypes;
 import com.qk.common.enums.ParamEnum;
@@ -15,10 +16,12 @@ import com.qk.common.util.CurrentUserContextHolders;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueListDTO;
 import com.qk.dto.clue.UpdateClueInfoDTO;
+import com.qk.entity.Business;
 import com.qk.entity.Clue;
 import com.qk.entity.ClueTrackRecord;
 import com.qk.entity.User;
 import com.qk.entity.domain.clue.ClueDO;
+import com.qk.management.mapper.BusinessMapper;
 import com.qk.management.mapper.ClueMapper;
 import com.qk.management.mapper.ClueTrackRecordMapper;
 import com.qk.management.mapper.UserMapper;
@@ -48,6 +51,31 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     private UserMapper userMapper;
     @Autowired
     private ClueTrackRecordMapper clueTrackRecordMapper;
+    @Autowired
+    private BusinessMapper businessMapper;
+
+    @Override
+    public void toBusiness(Integer id) {
+        //1.根据线索的Id查询线索
+        Clue clue = clueMapper.selectById(id);
+        //2.1修改线索的状态 转商机
+        clue.setStatus(ClueStatusConstants.CONVERT_TO_BUSINESS);
+        //2.2修改线索的更新时间
+        clue.setUpdateTime(LocalDateTime.now());
+        //3.把线索的数据更新
+        clueMapper.updateById(clue);
+        //4.把clue中同名的属性拷贝到business中
+        Business business = BeanUtil.copyProperties(clue, Business.class);
+        business.setId(null);
+        business.setStatus(ClueBusinessStatusConstants.WAIT_ALLOCATION);
+        business.setClueId(id);
+        business.setNextTime(null);
+        business.setCreateTime(LocalDateTime.now());
+        business.setUpdateTime(LocalDateTime.now());
+        //5.组装数据 插入business表
+        businessMapper.insert( business);
+
+    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override

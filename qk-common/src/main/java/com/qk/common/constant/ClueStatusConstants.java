@@ -11,4 +11,8 @@ public class ClueStatusConstants {
     public static final Integer WAIT_FOLLOW_UP = 2;
     //跟进中
     public static final Integer FOLLOW_UP = 3;
+    //伪线索
+    public static final Integer FAKE_CLUE = 4;
+    //转商机
+    public static final Integer CONVERT_TO_BUSINESS = 5;
 }

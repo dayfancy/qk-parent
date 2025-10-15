@@ -10,6 +10,8 @@ import com.qk.entity.domain.clue.ClueDO;
 import com.qk.vo.clue.ClueVO;
 
 public interface ClueService extends IService<Clue> {
+    void toBusiness(Integer id);
+
     void updateClueInfoById(UpdateClueInfoDTO dto);
 
     ClueVO selectClueInfoById(Integer Id);
