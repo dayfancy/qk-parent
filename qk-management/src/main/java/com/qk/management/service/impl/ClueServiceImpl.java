@@ -54,6 +54,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     @Autowired
     private BusinessMapper businessMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void toBusiness(Integer id) {
         //1.根据线索的Id查询线索
@@ -94,7 +95,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         clueTrackRecord.setId(null);
         clueTrackRecord.setClueId(clue.getId());
         clueTrackRecord.setType(ClueTrackRecordTypes.NORMAL);
-        //TODO 设置跟进用户id的当前用户 此时当前用户的id还在拦截器中
+        //设置跟进用户id的当前用户 此时当前用户的id还在拦截器中
         clueTrackRecord.setUserId(CurrentUserContextHolders.get());
         this.clueTrackRecordMapper.insert(clueTrackRecord);
     }
