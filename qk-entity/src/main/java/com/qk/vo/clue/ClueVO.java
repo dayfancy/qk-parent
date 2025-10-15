@@ -50,5 +50,8 @@ public class ClueVO {
     //跟进记录表
     private List<ClueTrackRecordVO> trackRecords;
 
+    //
+    private Integer status;
+
 
 }
