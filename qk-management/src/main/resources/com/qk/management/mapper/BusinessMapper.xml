@@ -1,3 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qk.management.mapper.BusinessMapper"></mapper>
+<mapper namespace="com.qk.management.mapper.BusinessMapper">
+    <select id="selectListByPage" resultType="com.qk.vo.business.BusinessListVO">
+        SELECT b.*,u.name AS assignName
+        FROM business b
+        LEFT JOIN user u ON b.user_id = u.id
+        <where>
+        <if test="dto.businessId !=null">
+            b.id = #{dto.businessId}
+        </if>
+        <if test="dto.name !=null and dto.name !=''">
+            AND b.name LIKE CONCAT('%',#{dto.name},'%')
+        </if>
+        <if test="dto.phone !=null and dto.phone !=''">
+            AND b.phone LIKE CONCAT('%',#{dto.phone},'%')
+        </if>
+        <if test="dto.status !=null">
+            AND b.status = #{dto.status}
+        </if>
+        <if test="dto.assignName !=null and dto.assignName !=''">
+            AND u.name LIKE CONCAT('%',#{dto.assignName},'%')
+        </if>
+        </where>
+    </select>
+</mapper>
