@@ -21,6 +21,13 @@ public class BusinessController {
     @Autowired
     private BusinessService BusinessService;
 
+    @PutMapping("/assign/{businessId}/{userId}")
+    public Result assignBusiness(@PathVariable Integer businessId, @PathVariable Integer userId){
+        BusinessService.assignBusiness(businessId, userId);
+        return Result.success();
+    }
+
+
     @PostMapping
     public Result add(@RequestBody BusinessAddDTO dto){
         BusinessService.addBusiness(dto);

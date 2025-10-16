@@ -5,6 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.qk.common.PageResult;
+import com.qk.common.constant.BusinessStatusConstants;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
 import com.qk.dto.business.BusinessAddDTO;
@@ -28,6 +29,15 @@ import java.time.LocalDateTime;
 public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> implements BusinessService {
     @Autowired
     private BusinessMapper businessMapper;
+
+    @Override
+    public void assignBusiness(Integer businessId, Integer userId) {
+        Business business = this.baseMapper.selectById(businessId);
+        business.setUserId(userId);
+        business.setUpdateTime(LocalDateTime.now());
+        business.setStatus(BusinessStatusConstants.WAIT_FOLLOW_UP);
+        this.baseMapper.updateById(business);
+    }
 
     @Override
     public void addBusiness(BusinessAddDTO dto) {
