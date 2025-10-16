@@ -14,6 +14,7 @@ import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
 import com.qk.common.util.CurrentUserContextHolders;
 import com.qk.dto.clue.ClueDTO;
+import com.qk.dto.clue.ClueFalseDTO;
 import com.qk.dto.clue.ClueListDTO;
 import com.qk.dto.clue.UpdateClueInfoDTO;
 import com.qk.entity.Business;
@@ -53,6 +54,29 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     private ClueTrackRecordMapper clueTrackRecordMapper;
     @Autowired
     private BusinessMapper businessMapper;
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateClueAndRecordById(Integer id, ClueFalseDTO dto) {
+        //1.根据id查询线索
+        Clue clue = clueMapper.selectById(id);
+        //  把状态更新为伪线索
+        clue.setStatus(ClueStatusConstants.FAKE_CLUE);
+        //  把更新时间更新为当前时间
+        clue.setUpdateTime(LocalDateTime.now());
+        clueMapper.updateById(clue);
+        //2.添加一条线索的跟进记录
+        //2.1把同名的属性拷贝到 clueTrackRecord表中
+        ClueTrackRecord clueTrackRecord = BeanUtil.copyProperties(clue, ClueTrackRecord.class);
+        clueTrackRecord.setId( null);
+        clueTrackRecord.setClueId( id);
+        clueTrackRecord.setRecord(dto.getRemark());
+        clueTrackRecord.setNextTime( null);
+        clueTrackRecord.setType(ClueTrackRecordTypes.FAKE_CLUE);
+        clueTrackRecord.setFalseReason(dto.getReason());
+        clueTrackRecordMapper.insert(clueTrackRecord);
+
+    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override

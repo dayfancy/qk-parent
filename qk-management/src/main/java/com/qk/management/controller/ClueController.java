@@ -4,6 +4,7 @@ import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.common.constant.ClueStatusConstants;
 import com.qk.dto.clue.ClueDTO;
+import com.qk.dto.clue.ClueFalseDTO;
 import com.qk.dto.clue.ClueListDTO;
 import com.qk.dto.clue.UpdateClueInfoDTO;
 import com.qk.entity.Clue;
@@ -26,6 +27,18 @@ import java.time.LocalDateTime;
 public class ClueController {
     @Autowired
     private ClueService clueService;
+
+    /**
+     * 线索转伪线索
+     * @param id
+     * @return
+     */
+    @PutMapping("/false/{id}")
+    public Result updateClueAndRecordById(@PathVariable Integer id, @RequestBody ClueFalseDTO dto){
+        clueService.updateClueAndRecordById(id,dto);
+        return Result.success();
+    }
+
 
     @PutMapping("/toBusiness/{id}")
     public Result toBusiness(@PathVariable Integer id){

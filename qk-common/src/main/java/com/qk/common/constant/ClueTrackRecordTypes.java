@@ -9,4 +9,6 @@ public class ClueTrackRecordTypes {
     private ClueTrackRecordTypes(){}
     //正常跟进
     public static final Integer NORMAL = 1;
+    //伪线索
+    public static final Integer FAKE_CLUE = 0;
 }
