@@ -3,13 +3,11 @@ package com.qk.management.controller;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.common.constant.ClueStatusConstants;
-import com.qk.dto.clue.ClueDTO;
-import com.qk.dto.clue.ClueFalseDTO;
-import com.qk.dto.clue.ClueListDTO;
-import com.qk.dto.clue.UpdateClueInfoDTO;
+import com.qk.dto.clue.*;
 import com.qk.entity.Clue;
 import com.qk.entity.domain.clue.ClueDO;
 import com.qk.management.service.ClueService;
+import com.qk.vo.clue.CluePoolVO;
 import com.qk.vo.clue.ClueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +25,13 @@ import java.time.LocalDateTime;
 public class ClueController {
     @Autowired
     private ClueService clueService;
+
+
+    @GetMapping("/pool")
+    public Result selectCluePool(CluePoorDTO dto){
+      PageResult<CluePoolVO> pageResult = clueService.selectCluePool(dto);
+      return Result.success(pageResult);
+    }
 
     /**
      * 线索转伪线索

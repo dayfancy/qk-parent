@@ -13,20 +13,12 @@ import com.qk.common.constant.ClueTrackRecordTypes;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
 import com.qk.common.util.CurrentUserContextHolders;
-import com.qk.dto.clue.ClueDTO;
-import com.qk.dto.clue.ClueFalseDTO;
-import com.qk.dto.clue.ClueListDTO;
-import com.qk.dto.clue.UpdateClueInfoDTO;
-import com.qk.entity.Business;
-import com.qk.entity.Clue;
-import com.qk.entity.ClueTrackRecord;
-import com.qk.entity.User;
+import com.qk.dto.clue.*;
+import com.qk.entity.*;
 import com.qk.entity.domain.clue.ClueDO;
-import com.qk.management.mapper.BusinessMapper;
-import com.qk.management.mapper.ClueMapper;
-import com.qk.management.mapper.ClueTrackRecordMapper;
-import com.qk.management.mapper.UserMapper;
+import com.qk.management.mapper.*;
 import com.qk.management.service.ClueService;
+import com.qk.vo.clue.CluePoolVO;
 import com.qk.vo.clue.ClueTrackRecordVO;
 import com.qk.vo.clue.ClueVO;
 import lombok.extern.slf4j.Slf4j;
@@ -54,9 +46,22 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     private ClueTrackRecordMapper clueTrackRecordMapper;
     @Autowired
     private BusinessMapper businessMapper;
+    @Autowired
+    private ActivityMapper activityMapper;
 
-    @Transactional(rollbackFor = Exception.class)
+
     @Override
+    public PageResult<CluePoolVO> selectCluePool(CluePoorDTO dto) {
+        Page<CluePoolVO> pages = new Page<>(dto.getPage(), dto.getPageSize());
+        Page<CluePoolVO> pageList = clueMapper.selectCluePool(pages, dto);
+        return PageResult.<CluePoolVO>builder()
+                .total(pageList.getTotal())
+                .rows(pageList.getResult())
+                .build();
+    }
+
+    @Override
+    @Transactional
     public void updateClueAndRecordById(Integer id, ClueFalseDTO dto) {
         //1.根据id查询线索
         Clue clue = clueMapper.selectById(id);
@@ -68,18 +73,18 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         //2.添加一条线索的跟进记录
         //2.1把同名的属性拷贝到 clueTrackRecord表中
         ClueTrackRecord clueTrackRecord = BeanUtil.copyProperties(clue, ClueTrackRecord.class);
-        clueTrackRecord.setId( null);
-        clueTrackRecord.setClueId( id);
+        clueTrackRecord.setId(null);
+        clueTrackRecord.setClueId(id);
         clueTrackRecord.setRecord(dto.getRemark());
-        clueTrackRecord.setNextTime( null);
+        clueTrackRecord.setNextTime(null);
         clueTrackRecord.setType(ClueTrackRecordTypes.FAKE_CLUE);
         clueTrackRecord.setFalseReason(dto.getReason());
         clueTrackRecordMapper.insert(clueTrackRecord);
 
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void toBusiness(Integer id) {
         //1.根据线索的Id查询线索
         Clue clue = clueMapper.selectById(id);
@@ -98,7 +103,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         business.setCreateTime(LocalDateTime.now());
         business.setUpdateTime(LocalDateTime.now());
         //5.组装数据 插入business表
-        businessMapper.insert( business);
+        businessMapper.insert(business);
 
     }
 
@@ -108,7 +113,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         Clue clue = BeanUtil.copyProperties(dto, Clue.class);
         clue.setUpdateTime(LocalDateTime.now());
         //线索跟进状态 如果是第一次被跟进状态 status要改成跟进中
-        if(clue.getStatus() == ClueStatusConstants.WAIT_FOLLOW_UP){
+        if (clue.getStatus() == ClueStatusConstants.WAIT_FOLLOW_UP) {
             clue.setStatus(ClueStatusConstants.FOLLOW_UP);
         }
         //更新clue表的数据
@@ -126,9 +131,9 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
 
     @Override
     public PageResult<ClueDO> selectByPage(ClueListDTO dto) {
-        PageHelper.startPage(dto.getPage(),dto.getPageSize());
+        PageHelper.startPage(dto.getPage(), dto.getPageSize());
         List<ClueDO> list = clueMapper.selectByPage(dto);
-        Page<ClueDO> listPage = (Page<ClueDO>)list;
+        Page<ClueDO> listPage = (Page<ClueDO>) list;
         return PageResult.<ClueDO>builder()
                 .total(listPage.getTotal())
                 .rows(listPage.getResult())
@@ -158,7 +163,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     @Override
     public void add(ClueDTO dto) {
         //1.Param Checking
-        if(ObjectUtil.isEmpty(dto.getPhone())||ObjectUtil.isEmpty(dto.getChannel())){
+        if (ObjectUtil.isEmpty(dto.getPhone()) || ObjectUtil.isEmpty(dto.getChannel())) {
             CommonException.throwCommonException(ParamEnum.PARAM_ERROR);
         }
         //DTO to bean

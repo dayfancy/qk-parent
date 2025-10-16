@@ -26,4 +26,24 @@
         </where>
         ORDER BY c.update_time DESC
     </select>
+    <select id="selectCluePool" resultType="com.qk.vo.clue.CluePoolVO">
+        SELECT c.*,a.name AS activityName
+        FROM clue c
+        LEFT JOIN activity a ON c.activity_id = a.id
+        <where>
+            <if test="dto.phone != null and dto.phone != ''">
+                AND c.phone LIKE CONCAT('%',#{dto.phone},'%')
+            </if>
+            <if test="dto.channel != null">
+                AND c.channel = #{dto.channel}
+            </if>
+            <if test="dto.clueId != null">
+                AND c.id = #{dto.clueId}
+            </if>
+        </where>
+        ORDER BY c.update_time DESC
+
+    </select>
+
+
 </mapper>
