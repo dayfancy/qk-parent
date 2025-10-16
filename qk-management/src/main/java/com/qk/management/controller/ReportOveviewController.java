@@ -23,7 +23,7 @@ public class ReportOveviewController {
 
     @GetMapping("/report/overview")
     public Result reportOverview() {
-       PortalVO vo =  reportOveviewService.reportOverview();
+       PortalVO vo =  reportOveviewService.reportOverviewWithCache();
         return Result.success(vo);
     }
 }
