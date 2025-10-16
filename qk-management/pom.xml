@@ -14,6 +14,12 @@
 
 
     <dependencies>
+        <!--Redis 依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!--Redis 依赖-->
         <!--引入项目所需要模块-->
         <!--引入实体模块-->
         <dependency>
