@@ -6,6 +6,8 @@ import com.qk.dto.business.BusinessAddDTO;
 import com.qk.dto.business.BusinessListDTO;
 import com.qk.management.service.BusinessService;
 import com.qk.vo.business.BusinessListVO;
+
+import com.qk.vo.business.BusinessSelectByIdVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,15 +23,22 @@ public class BusinessController {
     @Autowired
     private BusinessService BusinessService;
 
+    @GetMapping("/{id}")
+    public Result selectBusinessById(@PathVariable Integer id) {
+        BusinessSelectByIdVO vo = BusinessService.selectBusinessById(id);
+        return Result.success(vo);
+    }
+
+
     @PutMapping("/assign/{businessId}/{userId}")
-    public Result assignBusiness(@PathVariable Integer businessId, @PathVariable Integer userId){
+    public Result assignBusiness(@PathVariable Integer businessId, @PathVariable Integer userId) {
         BusinessService.assignBusiness(businessId, userId);
         return Result.success();
     }
 
 
     @PostMapping
-    public Result add(@RequestBody BusinessAddDTO dto){
+    public Result add(@RequestBody BusinessAddDTO dto) {
         BusinessService.addBusiness(dto);
         return Result.success();
     }
