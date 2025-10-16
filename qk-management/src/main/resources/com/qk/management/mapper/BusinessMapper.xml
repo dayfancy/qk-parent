@@ -22,5 +22,6 @@
             AND u.name LIKE CONCAT('%',#{dto.assignName},'%')
         </if>
         </where>
+        ORDER BY b.update_time DESC
     </select>
 </mapper>
