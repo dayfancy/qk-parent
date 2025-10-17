@@ -71,8 +71,11 @@ public class LogRecordAspect {
                     .returnValue( result)
                     .costTime(endTime - startTime)
                     .build();
-            operateMapper.insert(operateLog);
-
+            try {
+                operateMapper.insert(operateLog);
+            } catch (Exception e) {
+                log.error("操作日志写入数据库失败:{}", e.getMessage());
+            }
         } catch (Throwable e) {
             log.error("操作失败:{}", e.getMessage());
             resultValue = Result.error(ResultConstants.FAIL);
