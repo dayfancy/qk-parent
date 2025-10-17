@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qk.management.mapper.BusinessMapper"></mapper>
+<mapper namespace="com.qk.management.mapper.BusinessMapper">
+    <select id="selectCountBusiness" resultType="com.qk.domain.business.BusinessCountDO">
+        SELECT
+            COUNT(1) as business_total,
+            COUNT(if(status = 1, 1, null))AS business_wait_allot,
+            COUNT(if(status = 2, 1, null))AS business_wait_follow,
+            COUNT(if(status = 3, 1, null))AS business_following,
+            COUNT(if(status = 4, 1, null))AS business_false,
+            COUNT(if(status = 5, 1, null))AS business_convert_customer
+        FROM business
+    </select>
+</mapper>

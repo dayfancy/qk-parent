@@ -26,4 +26,14 @@
         </where>
         ORDER BY c.update_time DESC
     </select>
+    <select id="selectCountClue" resultType="com.qk.domain.clue.ClueCountDO">
+        SELECT
+        COUNT(1) AS clueTotal,
+        COUNT(IF(c.status = 1, 1, NULL)) AS clueWaitAllot,
+        COUNT(IF(c.status = 2, 1, NULL)) AS clueWaitFollow,
+        COUNT(IF(c.status = 3, 1, NULL)) AS clueFollowing,
+        COUNT(IF(c.status = 4, 1, NULL)) AS clueFalse,
+        COUNT(IF(c.status = 5, 1, NULL)) AS clueConvertBusiness
+        FROM clue c
+    </select>
 </mapper>
