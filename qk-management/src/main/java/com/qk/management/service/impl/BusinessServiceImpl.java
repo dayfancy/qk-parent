@@ -13,8 +13,10 @@ import com.qk.dto.business.BusinessAddDTO;
 import com.qk.dto.business.BusinessListDTO;
 import com.qk.entity.Business;
 import com.qk.entity.BusinessTrackRecord;
+import com.qk.entity.User;
 import com.qk.management.mapper.BusinessMapper;
 import com.qk.management.mapper.BusinessTrackRecordMapper;
+import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.BusinessService;
 import com.qk.vo.business.BusinessListVO;
 import com.qk.vo.business.BusinessSelectByIdVO;
@@ -36,6 +38,8 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     private BusinessMapper businessMapper;
     @Autowired
     private BusinessTrackRecordMapper businessTrackRecordMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public BusinessSelectByIdVO selectBusinessById(Integer id) {
@@ -43,11 +47,19 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
         Business business = this.baseMapper.selectById(id);
         //2.查询商机跟进记录表 返回商机跟进记录对象
         List<BusinessTrackRecord> businessTrackRecords = businessTrackRecordMapper.selectList(Wrappers.lambdaQuery(BusinessTrackRecord.class)
-                .eq(BusinessTrackRecord::getBusinessId, id));
+                .eq(BusinessTrackRecord::getBusinessId, id))
+                .stream()
+                .map(item ->{
+                   User user =  userMapper.selectById(item.getUserId());
+                   item.setAssignName(user.getName());
+                   return item;
+                }).toList();
         //3.把两个对象组合成VO对象
         BusinessSelectByIdVO businessSelectByIdVO = BeanUtil.copyProperties(business, BusinessSelectByIdVO.class);
         //把集合businessTrackRecords组装到businessSelectByIdVO对象的trackRecords属性
         businessSelectByIdVO.setTrackRecords(businessTrackRecords);
+
+
         return businessSelectByIdVO;
     }
 

@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodedPassword);
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
-        userMapper.insert(user);
+        userMapper.insertById(user);
     }
 
     @Override
