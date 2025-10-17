@@ -8,6 +8,7 @@ import com.qk.dto.clue.ClueListDTO;
 import com.qk.dto.clue.UpdateClueInfoDTO;
 import com.qk.entity.Clue;
 import com.qk.entity.domain.clue.ClueDO;
+import com.qk.management.aop.annotation.LogAnno;
 import com.qk.management.service.ClueService;
 import com.qk.vo.clue.ClueVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,14 @@ public class ClueController {
     @Autowired
     private ClueService clueService;
 
+    @LogAnno
     @PutMapping("/toBusiness/{id}")
     public Result toBusiness(@PathVariable Integer id){
         clueService.toBusiness(id);
         return Result.success();
     }
 
+    @LogAnno
     @PutMapping
     public Result updateClueInfoById(@RequestBody UpdateClueInfoDTO dto) {
         clueService.updateClueInfoById(dto);
@@ -45,7 +48,7 @@ public class ClueController {
          ClueVO clueVO = clueService.selectClueInfoById(id);
         return Result.success(clueVO);
     }
-
+    @LogAnno
     @PutMapping("/assign/{clueId}/{userId}")
     public Result updateById(@PathVariable Integer clueId, @PathVariable Integer userId){
         clueService.updateById(Clue.builder()
@@ -64,6 +67,7 @@ public class ClueController {
         return Result.success(pageResult);
     }
 
+    @LogAnno
     @PostMapping
     public Result add(@RequestBody ClueDTO dto) {
         clueService.add(dto);
