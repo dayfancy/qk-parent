@@ -9,6 +9,7 @@ import com.qk.common.PageResult;
 import com.qk.common.constant.BusinessStatusConstants;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
+import com.qk.common.util.CurrentUserContextHolders;
 import com.qk.dto.business.BusinessAddDTO;
 import com.qk.dto.business.BusinessFollowDTO;
 import com.qk.dto.business.BusinessListDTO;
@@ -23,6 +24,7 @@ import com.qk.vo.business.BusinessListVO;
 import com.qk.vo.business.BusinessSelectByIdVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,11 +44,31 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     @Autowired
     private UserMapper userMapper;
 
+    @Transactional
     @Override
     public void followBusiness(BusinessFollowDTO dto) {
         //更新两张表 要事务管理
         //创建一个商机对象 把dto 的拷贝给商机对象
+        Business business = BeanUtil.copyProperties(dto, Business.class);
         //判断是不是第一次跟进 是第一次跟进的话 状态要改为待跟进
+        if (business.getStatus() == BusinessStatusConstants.WAIT_FOLLOW_UP) {
+            business.setStatus(BusinessStatusConstants.FOLLOW_UP);
+        }
+        business.setUpdateTime(LocalDateTime.now());
+        this.baseMapper.updateById(business);
+        //添加一条商机的跟进记录
+        List<String> keyItems = dto.getKeyItems();
+        String string = String.join(",", keyItems);
+        BusinessTrackRecord businessTrackRecord = BeanUtil.copyProperties(dto, BusinessTrackRecord.class);
+        businessTrackRecord.setTrackStatus(dto.getTrackStatus());
+        businessTrackRecord.setBusinessId(business.getId());
+        businessTrackRecord.setKeyItems(string);
+        businessTrackRecord.setNextTime(dto.getNextTime());
+        businessTrackRecord.setRecord(dto.getRecord());
+        businessTrackRecord.setCreateTime(LocalDateTime.now());
+        businessTrackRecord.setUserId(CurrentUserContextHolders.get());
+        businessTrackRecordMapper.insert(businessTrackRecord);
+
     }
 
     @Override
@@ -55,12 +77,12 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
         Business business = this.baseMapper.selectById(id);
         //2.查询商机跟进记录表 返回商机跟进记录对象
         List<BusinessTrackRecord> businessTrackRecords = businessTrackRecordMapper.selectList(Wrappers.lambdaQuery(BusinessTrackRecord.class)
-                .eq(BusinessTrackRecord::getBusinessId, id))
+                        .eq(BusinessTrackRecord::getBusinessId, id))
                 .stream()
-                .map(item ->{
-                   User user =  userMapper.selectById(item.getUserId());
-                   item.setAssignName(user.getName());
-                   return item;
+                .map(item -> {
+                    User user = userMapper.selectById(item.getUserId());
+                    item.setAssignName(user.getName());
+                    return item;
                 }).toList();
         //3.把两个对象组合成VO对象
         BusinessSelectByIdVO businessSelectByIdVO = BeanUtil.copyProperties(business, BusinessSelectByIdVO.class);
