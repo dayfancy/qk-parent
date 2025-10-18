@@ -10,6 +10,7 @@ import com.qk.common.constant.BusinessStatusConstants;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
 import com.qk.dto.business.BusinessAddDTO;
+import com.qk.dto.business.BusinessFollowDTO;
 import com.qk.dto.business.BusinessListDTO;
 import com.qk.entity.Business;
 import com.qk.entity.BusinessTrackRecord;
@@ -40,6 +41,13 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     private BusinessTrackRecordMapper businessTrackRecordMapper;
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public void followBusiness(BusinessFollowDTO dto) {
+        //更新两张表 要事务管理
+        //创建一个商机对象 把dto 的拷贝给商机对象
+        //判断是不是第一次跟进 是第一次跟进的话 状态要改为待跟进
+    }
 
     @Override
     public BusinessSelectByIdVO selectBusinessById(Integer id) {

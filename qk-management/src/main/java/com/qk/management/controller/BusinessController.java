@@ -3,10 +3,10 @@ package com.qk.management.controller;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.business.BusinessAddDTO;
+import com.qk.dto.business.BusinessFollowDTO;
 import com.qk.dto.business.BusinessListDTO;
 import com.qk.management.service.BusinessService;
 import com.qk.vo.business.BusinessListVO;
-
 import com.qk.vo.business.BusinessSelectByIdVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.*;
 public class BusinessController {
     @Autowired
     private BusinessService BusinessService;
+
+    @PutMapping
+    public Result followBusiness(@RequestBody BusinessFollowDTO dto){
+        BusinessService.followBusiness(dto);
+        return Result.success();
+    }
 
     @GetMapping("/{id}")
     public Result selectBusinessById(@PathVariable Integer id) {
