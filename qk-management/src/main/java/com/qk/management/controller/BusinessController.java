@@ -23,6 +23,12 @@ public class BusinessController {
     @Autowired
     private BusinessService businessService;
 
+    @PutMapping("back/{id}")
+    public Result backToSeaPool(@PathVariable Integer id) {
+        businessService.back(id);
+        return Result.success();
+    }
+
     //转客户
     @PostMapping("/toCustomer/{id}")
     public Result toCustomer(@PathVariable Integer id) {

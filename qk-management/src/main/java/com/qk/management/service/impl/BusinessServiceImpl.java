@@ -49,6 +49,14 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     private CustomerMapper customerMapper;
 
     @Override
+    public void back(Integer id) {
+        Business business = this.baseMapper.selectById(id);
+        business.setStatus(BusinessStatusConstants.RECYCLE);
+        business.setUpdateTime(LocalDateTime.now());
+        this.baseMapper.updateById(business);
+    }
+
+    @Override
     @Transactional
     public void toCustomer(Integer id) {
         Business business = this.baseMapper.selectById(id);
