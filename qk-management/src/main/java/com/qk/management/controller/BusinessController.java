@@ -21,37 +21,44 @@ import org.springframework.web.bind.annotation.*;
 @SuppressWarnings("all")
 public class BusinessController {
     @Autowired
-    private BusinessService BusinessService;
+    private BusinessService businessService;
+
+    //转客户
+    @PostMapping("/toCustomer/{id}")
+    public Result toCustomer(@PathVariable Integer id) {
+        businessService.toCustomer(id);
+        return Result.success();
+    }
 
     @PutMapping
-    public Result followBusiness(@RequestBody BusinessFollowDTO dto){
-        BusinessService.followBusiness(dto);
+    public Result followBusiness(@RequestBody BusinessFollowDTO dto) {
+        businessService.followBusiness(dto);
         return Result.success();
     }
 
     @GetMapping("/{id}")
     public Result selectBusinessById(@PathVariable Integer id) {
-        BusinessSelectByIdVO vo = BusinessService.selectBusinessById(id);
+        BusinessSelectByIdVO vo = businessService.selectBusinessById(id);
         return Result.success(vo);
     }
 
 
     @PutMapping("/assign/{businessId}/{userId}")
     public Result assignBusiness(@PathVariable Integer businessId, @PathVariable Integer userId) {
-        BusinessService.assignBusiness(businessId, userId);
+        businessService.assignBusiness(businessId, userId);
         return Result.success();
     }
 
 
     @PostMapping
     public Result add(@RequestBody BusinessAddDTO dto) {
-        BusinessService.addBusiness(dto);
+        businessService.addBusiness(dto);
         return Result.success();
     }
 
     @GetMapping
     public Result selectListByPage(BusinessListDTO dto) {
-        PageResult<BusinessListVO> pageResult = BusinessService.selectListByPage(dto);
+        PageResult<BusinessListVO> pageResult = businessService.selectListByPage(dto);
         return Result.success(pageResult);
     }
 }

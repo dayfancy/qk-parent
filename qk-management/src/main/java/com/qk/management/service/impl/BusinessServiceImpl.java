@@ -15,9 +15,11 @@ import com.qk.dto.business.BusinessFollowDTO;
 import com.qk.dto.business.BusinessListDTO;
 import com.qk.entity.Business;
 import com.qk.entity.BusinessTrackRecord;
+import com.qk.entity.Customer;
 import com.qk.entity.User;
 import com.qk.management.mapper.BusinessMapper;
 import com.qk.management.mapper.BusinessTrackRecordMapper;
+import com.qk.management.mapper.CustomerMapper;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.BusinessService;
 import com.qk.vo.business.BusinessListVO;
@@ -43,6 +45,26 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     private BusinessTrackRecordMapper businessTrackRecordMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CustomerMapper customerMapper;
+
+    @Override
+    @Transactional
+    public void toCustomer(Integer id) {
+        Business business = this.baseMapper.selectById(id);
+        //状态改为转客户
+        business.setStatus(BusinessStatusConstants.TRANSFORM_CUSTOMER);
+        //修改时间改为现在
+        business.setUpdateTime(LocalDateTime.now());
+        this.baseMapper.updateById(business);
+        //把同名的属性拷贝到客户表
+        Customer customer = BeanUtil.copyProperties(business, Customer.class);
+        customer.setId(null);
+        customer.setBusinessId(id);
+        customer.setCreateTime(LocalDateTime.now());
+        customer.setUpdateTime(LocalDateTime.now());
+        customerMapper.insert(customer);
+    }
 
     @Transactional
     @Override

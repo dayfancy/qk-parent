@@ -10,6 +10,8 @@ import com.qk.vo.business.BusinessListVO;
 import com.qk.vo.business.BusinessSelectByIdVO;
 
 public interface BusinessService extends IService<Business> {
+    void toCustomer(Integer id);
+
     void followBusiness(BusinessFollowDTO dto);
 
     BusinessSelectByIdVO selectBusinessById(Integer id);
