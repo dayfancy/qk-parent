@@ -32,6 +32,12 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
     private CourseMapper courseMapper;
 
     @Override
+    public void updateCustomer(Customer customer) {
+        customer.setUpdateTime(LocalDateTime.now());
+        this.baseMapper.updateById(customer);
+    }
+
+    @Override
     public Customer selectCustomerById(Integer id) {
         return this.baseMapper.selectById(id);
     }

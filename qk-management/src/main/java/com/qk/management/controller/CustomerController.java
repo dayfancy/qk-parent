@@ -22,6 +22,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @PutMapping
+    public Result updateCustomer(@RequestBody Customer customer) {
+        customerService.updateCustomer(customer);
+        return Result.success();
+    }
+
 
     @GetMapping("/{id}")
     public Result selectCustomerById(@PathVariable Integer id) {

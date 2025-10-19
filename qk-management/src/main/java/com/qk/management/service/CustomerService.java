@@ -9,6 +9,8 @@ import com.qk.vo.customer.CustomerListVO;
 
 public interface CustomerService extends IService<Customer> {
 
+    void updateCustomer(Customer customer);
+
     Customer selectCustomerById(Integer id);
 
     void addCustomer(CustomerAddDTO dto);
