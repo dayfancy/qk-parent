@@ -1,17 +1,21 @@
-package com.qk.entity;
+package com.qk.dto.business;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 商机实体类
+ * @Author: RightSquare
+ * @Date: 2025/10/16 20:37
+ * @Description:
  */
 @Data
-@TableName("business")
-public class Business {
-    private Integer id; // 商机id, 主键
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BusinessAddDTO {
     private String name; // 客户姓名
     private String phone; // 手机号
     private Integer gender; // 性别，1:男, 2:女
@@ -24,10 +28,4 @@ public class Business {
     private Integer jobStatus; // 在职情况, 1: 在职, 0: 离职
     private Integer channel; // 渠道来源，1:线上活动, 2:推广介绍
     private String remark; // 备注
-    private Integer status; // 商机状态，1:待分配, 2:待跟进, 3:跟进中, 4:回收, 5:转客户
-    private Integer userId; // 归属人id，关联用户id
-    private Integer clueId; // 归属线索id
-    private LocalDateTime nextTime; // 下次跟进时间
-    private LocalDateTime createTime; // 创建时间
-    private LocalDateTime updateTime; // 修改时间
 }

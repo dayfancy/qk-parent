@@ -1,5 +1,6 @@
 package com.qk.management.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qk.dto.user.UserDTO;
 import com.qk.entity.Role;
 import com.qk.entity.User;
@@ -15,7 +16,7 @@ import java.util.List;
  * @Description: Dao
  */
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
 
 
     @Select("select * from role where id = #{roleId}")
@@ -32,7 +33,7 @@ public interface UserMapper {
 
     void update(User user);
 
-    void insert(User user);
+    void insertById(User user);
 
     List<UserDO> selectByPage(UserDTO dto);
 }

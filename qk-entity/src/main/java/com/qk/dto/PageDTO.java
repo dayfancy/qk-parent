@@ -8,7 +8,6 @@ import lombok.*;
  * @Description:
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PageDTO {

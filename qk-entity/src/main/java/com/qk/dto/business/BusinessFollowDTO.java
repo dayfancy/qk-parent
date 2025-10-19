@@ -1,16 +1,23 @@
-package com.qk.entity;
+package com.qk.dto.business;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
- * 商机实体类
+ * @Author: RightSquare
+ * @Date: 2025/10/18 8:34
+ * @Description:
  */
 @Data
-@TableName("business")
-public class Business {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BusinessFollowDTO {
     private Integer id; // 商机id, 主键
     private String name; // 客户姓名
     private String phone; // 手机号
@@ -27,7 +34,12 @@ public class Business {
     private Integer status; // 商机状态，1:待分配, 2:待跟进, 3:跟进中, 4:回收, 5:转客户
     private Integer userId; // 归属人id，关联用户id
     private Integer clueId; // 归属线索id
-    private LocalDateTime nextTime; // 下次跟进时间
     private LocalDateTime createTime; // 创建时间
     private LocalDateTime updateTime; // 修改时间
+
+
+    private Integer trackStatus; // 跟进状态, 1:接通, 2:拒绝, 3:无人接听
+    private List<String> keyItems; // 沟通重点
+    private LocalDateTime nextTime; // 下次跟进时间
+    private String record; // 沟通纪要
 }
