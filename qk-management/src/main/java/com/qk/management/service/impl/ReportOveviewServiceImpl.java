@@ -1,6 +1,7 @@
 package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.qk.common.constant.CacheConstants;
 import com.qk.domain.business.BusinessCountDO;
 import com.qk.domain.clue.ClueCountDO;
 import com.qk.management.aop.annotation.OverviewRedis;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: RightSquare
@@ -32,12 +35,9 @@ public class ReportOveviewServiceImpl implements ReportOveviewService {
     private BusinessMapper businessMapper;
     @Autowired
     private StringRedisTemplate redisClient;
-    //定义 常量缓存
-    public static final String CACHE_PORTAL_KEY_PREFIX = "qk:portal:";
 
 
     @Override
-    @OverviewRedis
     public PortalVO reportOverviewWithCache() {
 //        //1.定义缓存key
 //        String redisKey = CACHE_PORTAL_KEY_PREFIX + "reportOverview";
@@ -75,6 +75,9 @@ public class ReportOveviewServiceImpl implements ReportOveviewService {
     }
 
     @Override
+    @OverviewRedis(keyPrefix = CacheConstants.CACHE_PORTAL_KEY_PREFIX,
+                   expireTime = 24 * 60L,
+                   expireTimeUnit = TimeUnit.MINUTES)
     public PortalVO reportOverview() {
         //1.从clue表中查出数据返回给ClueCountDO
         ClueCountDO clueCountDO = clueMapper.selectCountClue();

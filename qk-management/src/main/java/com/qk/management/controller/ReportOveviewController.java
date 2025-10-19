@@ -21,9 +21,10 @@ public class ReportOveviewController {
     @Autowired
     private ReportOveviewService reportOveviewService;
 
+
     @GetMapping("/report/overview")
     public Result reportOverview() {
-       PortalVO vo =  reportOveviewService.reportOverviewWithCache();
+       PortalVO vo =  reportOveviewService.reportOverview();
         return Result.success(vo);
     }
 }
