@@ -25,7 +25,7 @@
             <if test="dto.phone !=null and dto.phone !=''">
                 AND b.phone LIKE CONCAT('%',#{dto.phone},'%')
             </if>
-            <if test="dto.stat~us !=null">
+            <if test="dto.status !=null">
                 AND b.status = #{dto.status}
             </if>
             <if test="dto.assignName !=null and dto.assignName !=''">
