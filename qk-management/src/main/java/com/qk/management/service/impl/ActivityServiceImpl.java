@@ -3,6 +3,7 @@ package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
@@ -10,7 +11,9 @@ import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
 import com.qk.dto.activity.ActivityDTO;
 import com.qk.entity.Activity;
+import com.qk.entity.Clue;
 import com.qk.management.mapper.ActivityMapper;
+import com.qk.management.mapper.ClueMapper;
 import com.qk.management.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,8 @@ import java.util.List;
 public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityMapper activityMapper;
+    @Autowired
+    private ClueMapper clueMapper;
 
     @Override
     public List<Activity> getByType(Integer type) {
@@ -65,7 +70,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void deleteById(Integer id) {
-        activityMapper.deleteById(id);
+        List<Clue> clues = clueMapper.selectList(Wrappers.lambdaQuery(Clue.class).eq(Clue::getActivityId, id));
+        if (clues.size() > 0){
+            CommonException.throwCommonException(ParamEnum.DELETE_ERROR);
+        }else {
+            activityMapper.deleteById(id);
+        }
     }
 
     @Override

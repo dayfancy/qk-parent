@@ -7,6 +7,7 @@ import com.qk.common.PageResult;
 import com.qk.common.enums.ParamEnum;
 import com.qk.common.exception.CommonException;
 import com.qk.entity.Course;
+import com.qk.management.mapper.ClueMapper;
 import com.qk.management.mapper.CourseMapper;
 import com.qk.management.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private ClueMapper clueMapper;
 
     @Override
     public List<Course> selectBySubject(Integer subjcet) {
@@ -48,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteById(Integer id) {
-        courseMapper.deleteById(id);
+        clueMapper.deleteById(id);
     }
 
     @Override
