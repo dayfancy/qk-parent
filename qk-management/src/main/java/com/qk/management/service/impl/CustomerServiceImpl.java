@@ -1,9 +1,11 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
+import com.qk.dto.customer.CustomerAddDTO;
 import com.qk.dto.customer.CustomerListDTO;
 import com.qk.entity.Customer;
 import com.qk.management.mapper.CourseMapper;
@@ -14,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -27,6 +30,15 @@ import java.util.List;
 public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> implements CustomerService {
     @Autowired
     private CourseMapper courseMapper;
+
+    @Override
+    public void addCustomer(CustomerAddDTO dto) {
+        Customer customer = BeanUtil.copyProperties(dto, Customer.class);
+        customer.setUpdateTime(LocalDateTime.now());
+        customer.setCreateTime(LocalDateTime.now());
+        this.baseMapper.insert(customer);
+    }
+
     @Override
     public PageResult<CustomerListVO> selectListByPage(CustomerListDTO dto) {
         PageHelper.startPage(dto.getPage(), dto.getPageSize());
