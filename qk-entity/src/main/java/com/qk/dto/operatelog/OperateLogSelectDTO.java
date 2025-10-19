@@ -1,11 +1,11 @@
-package com.qk.dto.clue;
+package com.qk.dto.operatelog;
 
 import com.qk.dto.PageDTO;
 import lombok.*;
 
 /**
  * @Author: RightSquare
- * @Date: 2025/10/16 17:50
+ * @Date: 2025/10/19 12:11
  * @Description:
  */
 @Data
@@ -13,8 +13,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CluePoorDTO extends PageDTO{
-    private Integer clueId;
-    private String phone;
-    private Integer channel;
+public class OperateLogSelectDTO extends PageDTO {
+    private String operateUserName;
 }
