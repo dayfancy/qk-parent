@@ -1,3 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qk.management.mapper.CustomerMapper"/>
+<mapper namespace="com.qk.management.mapper.CustomerMapper">
+    <select id="selectListByPage" resultType="com.qk.vo.customer.CustomerListVO"
+            parameterType="com.qk.dto.customer.CustomerListDTO">
+        SELECT
+            customer.*,course.name AS courseName
+        FROM customer
+        LEFT JOIN course ON customer.course_id = course.id
+        <where>
+            <if test="phone != null and phone != ''">
+                AND customer.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+            <if test="name != null and name != ''">
+                AND customer.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="channel != null">
+                AND customer.channel = #{channel}
+            </if>
+            <if test="subject != null">
+                AND customer.subject = #{subject}
+            </if>
+        </where>
+        ORDER BY customer.update_time DESC
+    </select>
+</mapper>
