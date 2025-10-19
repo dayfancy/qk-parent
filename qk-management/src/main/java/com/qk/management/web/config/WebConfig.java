@@ -1,7 +1,6 @@
 package com.qk.management.web.config;
 
 import com.qk.management.web.interceptor.LoginCheckInterceptor;
-import com.qk.management.web.interceptor.MyInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

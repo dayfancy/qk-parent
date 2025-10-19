@@ -2,10 +2,7 @@ package com.qk.vo.business;
 
 import com.qk.entity.Business;
 import com.qk.entity.BusinessTrackRecord;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -18,6 +15,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class BusinessSelectByIdVO extends Business {
     private List<BusinessTrackRecord> trackRecords;
 }

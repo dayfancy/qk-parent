@@ -5,6 +5,7 @@ package com.qk.common.constant;
  * @Date: 2025/10/16 21:15
  * @Description:
  */
+@SuppressWarnings("all")
 public class BusinessStatusConstants {
     //待分配
     public static final Integer WAIT_ALLOCATION = 1;

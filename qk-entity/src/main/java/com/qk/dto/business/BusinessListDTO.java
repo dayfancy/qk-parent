@@ -1,10 +1,7 @@
 package com.qk.dto.business;
 
 import com.qk.dto.PageDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * @Author: RightSquare
@@ -15,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class BusinessListDTO extends PageDTO {
     private Integer businessId; // 商机id, 主键
     private String name; // 客户姓名

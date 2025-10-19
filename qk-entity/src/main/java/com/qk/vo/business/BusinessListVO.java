@@ -1,10 +1,7 @@
 package com.qk.vo.business;
 
 import com.qk.entity.Business;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * @Author: RightSquare
@@ -15,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class BusinessListVO extends Business {
     private String assignName;
 }

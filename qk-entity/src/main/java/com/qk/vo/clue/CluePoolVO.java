@@ -1,6 +1,5 @@
 package com.qk.vo.clue;
 
-import com.qk.entity.Clue;
 import lombok.*;
 
 import java.time.LocalDateTime;
