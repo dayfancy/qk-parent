@@ -32,6 +32,11 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
     private CourseMapper courseMapper;
 
     @Override
+    public Customer selectCustomerById(Integer id) {
+        return this.baseMapper.selectById(id);
+    }
+
+    @Override
     public void addCustomer(CustomerAddDTO dto) {
         Customer customer = BeanUtil.copyProperties(dto, Customer.class);
         customer.setUpdateTime(LocalDateTime.now());
