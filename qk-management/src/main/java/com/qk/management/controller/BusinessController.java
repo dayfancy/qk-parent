@@ -7,6 +7,7 @@ import com.qk.dto.business.BusinessFollowDTO;
 import com.qk.dto.business.BusinessListDTO;
 import com.qk.dto.business.BusinessPoolPageDTO;
 import com.qk.entity.Business;
+import com.qk.management.aop.annotation.LogAnno;
 import com.qk.management.service.BusinessService;
 import com.qk.vo.business.BusinessListVO;
 import com.qk.vo.business.BusinessSelectByIdVO;
@@ -31,7 +32,7 @@ public class BusinessController {
         return Result.success(pageResult);
     }
 
-
+    @LogAnno
     @PutMapping("back/{id}")
     public Result backToSeaPool(@PathVariable Integer id) {
         businessService.back(id);
@@ -39,6 +40,7 @@ public class BusinessController {
     }
 
     //转客户
+    @LogAnno
     @PostMapping("/toCustomer/{id}")
     public Result toCustomer(@PathVariable Integer id) {
         businessService.toCustomer(id);
@@ -46,6 +48,7 @@ public class BusinessController {
     }
 
     @PutMapping
+    @LogAnno
     public Result followBusiness(@RequestBody BusinessFollowDTO dto) {
         businessService.followBusiness(dto);
         return Result.success();
@@ -57,14 +60,14 @@ public class BusinessController {
         return Result.success(vo);
     }
 
-
+    @LogAnno
     @PutMapping("/assign/{businessId}/{userId}")
     public Result assignBusiness(@PathVariable Integer businessId, @PathVariable Integer userId) {
         businessService.assignBusiness(businessId, userId);
         return Result.success();
     }
 
-
+    @LogAnno
     @PostMapping
     public Result add(@RequestBody BusinessAddDTO dto) {
         businessService.addBusiness(dto);

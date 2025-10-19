@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
+@SuppressWarnings("unused")
 public @interface OverviewRedis {
 
     String Key() default "";

@@ -5,6 +5,7 @@ import com.qk.common.Result;
 import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
 import com.qk.entity.domain.user.UserDO;
+import com.qk.management.aop.annotation.LogAnno;
 import com.qk.management.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UserController {
     private UserService userService;
 
 
+    @LogAnno
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable List<Integer> ids){
         userService.delete(ids);
@@ -38,6 +40,7 @@ public class UserController {
         return Result.success(res);
     }
 
+    @LogAnno
     @PutMapping
     public Result update(@RequestBody User user){
         userService.update(user);
@@ -49,6 +52,7 @@ public class UserController {
         return Result.success(user);
 
     }
+    @LogAnno
     @PostMapping
     public Result add(@RequestBody User user){
         userService.addUser(user);

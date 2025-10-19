@@ -27,8 +27,6 @@ public class ClueController {
     @Autowired
     private ClueService clueService;
 
-    @LogAnno
-
     @GetMapping("/pool")
     public Result selectCluePool(CluePoorDTO dto){
       PageResult<CluePoolVO> pageResult = clueService.selectCluePool(dto);
@@ -40,13 +38,14 @@ public class ClueController {
      * @param id
      * @return
      */
+    @LogAnno
     @PutMapping("/false/{id}")
     public Result updateClueAndRecordById(@PathVariable Integer id, @RequestBody ClueFalseDTO dto){
         clueService.updateClueAndRecordById(id,dto);
         return Result.success();
     }
 
-
+    @LogAnno
     @PutMapping("/toBusiness/{id}")
     public Result toBusiness(@PathVariable Integer id){
         clueService.toBusiness(id);

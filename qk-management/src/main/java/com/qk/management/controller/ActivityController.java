@@ -4,6 +4,7 @@ import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.activity.ActivityDTO;
 import com.qk.entity.Activity;
+import com.qk.management.aop.annotation.LogAnno;
 import com.qk.management.service.ActivityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class ActivityController {
          return Result.success(activities);
     }
 
+    @LogAnno
     @PutMapping
     public Result update(@RequestBody Activity activity){
     activityService.update(activity);
@@ -42,12 +44,14 @@ public class ActivityController {
     return Result.success(activity);
     }
 
+    @LogAnno
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id){
     activityService.deleteById(id);
     return Result.success();
     }
 
+    @LogAnno
     @PostMapping
     public Result add(@RequestBody Activity activity){
     activityService.add(activity);

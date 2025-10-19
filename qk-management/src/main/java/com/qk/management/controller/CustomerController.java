@@ -5,6 +5,7 @@ import com.qk.common.Result;
 import com.qk.dto.customer.CustomerAddDTO;
 import com.qk.dto.customer.CustomerListDTO;
 import com.qk.entity.Customer;
+import com.qk.management.aop.annotation.LogAnno;
 import com.qk.management.service.CustomerService;
 import com.qk.vo.customer.CustomerListVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @LogAnno
     @PutMapping
     public Result updateCustomer(@RequestBody Customer customer) {
         customerService.updateCustomer(customer);
@@ -35,6 +37,7 @@ public class CustomerController {
         return Result.success(customer);
     }
 
+    @LogAnno
     @PostMapping
     public Result addCustomer(@RequestBody CustomerAddDTO dto) {
         customerService.addCustomer(dto);
