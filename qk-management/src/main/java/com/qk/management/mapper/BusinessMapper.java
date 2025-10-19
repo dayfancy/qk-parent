@@ -7,5 +7,6 @@ import com.qk.entity.Business;
 import com.qk.vo.business.BusinessListVO;
 
 public interface BusinessMapper extends BaseMapper<Business> {
+
     Page<BusinessListVO> selectListByPage(Page<BusinessListVO> page, BusinessListDTO dto);
 }

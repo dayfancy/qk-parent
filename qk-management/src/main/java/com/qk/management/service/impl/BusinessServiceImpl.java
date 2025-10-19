@@ -5,6 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.qk.common.PageResult;
 import com.qk.common.constant.BusinessStatusConstants;
 import com.qk.common.enums.ParamEnum;
@@ -13,6 +14,7 @@ import com.qk.common.util.CurrentUserContextHolders;
 import com.qk.dto.business.BusinessAddDTO;
 import com.qk.dto.business.BusinessFollowDTO;
 import com.qk.dto.business.BusinessListDTO;
+import com.qk.dto.business.BusinessPoolPageDTO;
 import com.qk.entity.Business;
 import com.qk.entity.BusinessTrackRecord;
 import com.qk.entity.Customer;
@@ -47,6 +49,23 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     private UserMapper userMapper;
     @Autowired
     private CustomerMapper customerMapper;
+
+    @Override
+    public PageResult<Business> selectPoolPage(BusinessPoolPageDTO dto) {
+        PageHelper.startPage(dto.getPage(), dto.getPageSize());
+        List<Business> list = businessMapper.selectList(Wrappers.lambdaQuery(Business.class)
+                .eq(Business::getStatus, BusinessStatusConstants.RECYCLE)
+                .eq(dto.getBusinessId()!=null,Business::getId, dto.getBusinessId())
+                .like(dto.getName()!=null && dto.getName()!="",Business::getName, dto.getName())
+                .like(dto.getPhone()!=null && dto.getPhone()!="",Business::getPhone, dto.getPhone())
+                .eq(dto.getSubject()!=null,Business::getSubject, dto.getSubject())
+        );
+        Page<Business> page = (Page<Business>) list;
+        return PageResult.<Business>builder()
+                .total(page.getTotal())
+                .rows(page.getResult())
+                .build();
+    }
 
     @Override
     public void back(Integer id) {

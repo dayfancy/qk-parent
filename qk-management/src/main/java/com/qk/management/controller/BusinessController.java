@@ -5,6 +5,8 @@ import com.qk.common.Result;
 import com.qk.dto.business.BusinessAddDTO;
 import com.qk.dto.business.BusinessFollowDTO;
 import com.qk.dto.business.BusinessListDTO;
+import com.qk.dto.business.BusinessPoolPageDTO;
+import com.qk.entity.Business;
 import com.qk.management.service.BusinessService;
 import com.qk.vo.business.BusinessListVO;
 import com.qk.vo.business.BusinessSelectByIdVO;
@@ -22,6 +24,13 @@ import org.springframework.web.bind.annotation.*;
 public class BusinessController {
     @Autowired
     private BusinessService businessService;
+
+    @GetMapping("/pool")
+    public Result selectPoolPage(BusinessPoolPageDTO dto){
+        PageResult<Business> pageResult = businessService.selectPoolPage(dto);
+        return Result.success(pageResult);
+    }
+
 
     @PutMapping("back/{id}")
     public Result backToSeaPool(@PathVariable Integer id) {
